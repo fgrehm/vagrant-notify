@@ -1,0 +1,13 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+require 'socket'
+
+# FIXME: This doesnt work:
+# ./notify-send -i gtk-dialog-info -t 10000 -- "Title" "Body"
+# You need to:
+# ./notify-send -i gtk-dialog-info -t 10000 '"Title"' '"Body"'
+
+TCPSocket.open "127.0.0.1", 8081 do |s|
+  s.send ARGV.join(' '), 0
+end
