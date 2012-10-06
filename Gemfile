@@ -1,3 +1,4 @@
 source 'https://rubygems.org'
 
-gem 'eventmachine'
+# Specify your gem's dependencies in vagrant-notify.gemspec
+gemspec

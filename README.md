@@ -1,3 +1,29 @@
-There's nothing interesting to see here yet, but the idea is to make a Vagrant
-plugin that redirects Ubuntu's (and eventually other OSs) `notify-send` from
-guest to host machine.
+# Vagrant::Notify
+
+A Vagrant plugin that redirects `notify-send` from guest to host machine.
+
+## Installation
+
+Add this line to your application's Gemfile:
+
+    gem 'vagrant-notify'
+
+And then execute:
+
+    $ bundle
+
+Or install it yourself as:
+
+    $ gem install vagrant-notify
+
+## Usage
+
+TODO: Write usage instructions here
+
+## Contributing
+
+1. Fork it
+2. Create your feature branch (`git checkout -b my-new-feature`)
+3. Commit your changes (`git commit -am 'Add some feature'`)
+4. Push to the branch (`git push origin my-new-feature`)
+5. Create new Pull Request
