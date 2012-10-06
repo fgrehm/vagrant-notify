@@ -5,11 +5,10 @@ require 'eventmachine'
 
 module EchoServer
   def post_init
-    puts "-- someone connected to the echo server!"
+    puts "-- someone connected to the server!"
   end
 
   def receive_data(data)
-    puts data
     `notify-send #{data}`
   end
 end
