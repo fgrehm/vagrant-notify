@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+
+require 'vagrant-notify/server'
+
+Vagrant::Notify::Server.run
