@@ -1,7 +1,5 @@
+require 'vagrant'
+require 'vagrant-notify/middleware'
 require "vagrant-notify/version"
 
-module Vagrant
-  module Notify
-    # Your code goes here...
-  end
-end
+Vagrant.actions[:start].insert_after(Vagrant::Action::VM::Provision, Vagrant::Notify::Middleware)
