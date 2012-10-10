@@ -8,9 +8,9 @@ Gem::Specification.new do |gem|
   gem.version       = Vagrant::Notify::VERSION
   gem.authors       = ["Fabio Rehm"]
   gem.email         = ["fgrehm@gmail.com"]
-  gem.description   = %q{TODO: Write a gem description}
-  gem.summary       = %q{TODO: Write a gem summary}
-  gem.homepage      = ""
+  gem.description   = 'A Vagrant plugin that redirects system notifications from guest to host machine.'
+  gem.summary       = gem.description
+  gem.homepage      = "https://github.com/fgrehm/vagrant-notify"
 
   gem.files         = `git ls-files`.split($/)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
