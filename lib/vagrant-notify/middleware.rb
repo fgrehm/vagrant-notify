@@ -6,7 +6,8 @@ module Vagrant
       end
 
       def call(env)
-        env[:ui].info "Hello from '#{env[:vm].name}'!"
+        pid = Server.run
+        env[:ui].info "Notification server fired up (#{pid})"
         @app.call(env)
       end
     end
