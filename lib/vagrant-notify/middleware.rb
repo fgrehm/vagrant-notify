@@ -9,20 +9,24 @@ module Vagrant
         if pid = server_is_running?(env)
           env[:ui].info "Notification server is already running (#{pid})"
         else
-          pid = Server.run
-
-          local_data = env[:vm].env.local_data
-          local_data['vagrant-notify'] ||= Vagrant::Util::HashWithIndifferentAccess.new
-          local_data['vagrant-notify']['pid'] = pid
-          local_data.commit
-
-          env[:ui].info "Notification server fired up (#{pid})"
+          run_server(env)
         end
 
         @app.call(env)
       end
 
       private
+
+      def run_server(env)
+        pid = Server.run
+
+        local_data = env[:vm].env.local_data
+        local_data['vagrant-notify'] ||= Vagrant::Util::HashWithIndifferentAccess.new
+        local_data['vagrant-notify']['pid'] = pid
+        local_data.commit
+
+        env[:ui].info "Notification server fired up (#{pid})"
+      end
 
       def server_is_running?(env)
         begin
