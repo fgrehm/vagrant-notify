@@ -1,5 +1,8 @@
 #!/usr/bin/env ruby
 
+# This is the wrapper around Ubuntu's notify-send that connects to the host machine
+# when sending notifications
+
 require 'rubygems'
 require 'socket'
 require 'optparse'
@@ -22,12 +25,12 @@ cmd = options.map do |key, value|
   "-#{key} '#{value}'"
 end.join(' ')
 
-# TODO: Should escape values
+# TODO: Need to escape values
 unless ARGV.empty?
   cmd << ' -- '
   cmd << ARGV.map{|a| "'#{a}'"}.join(' ')
 end
 
-TCPSocket.open "127.0.0.1", 8081 do |s|
+TCPSocket.open "<%= host_ip %>", <%= host_port %> do |s|
   s.send cmd, 0
 end
