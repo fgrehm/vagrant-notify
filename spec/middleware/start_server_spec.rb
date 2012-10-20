@@ -1,4 +1,4 @@
-describe Vagrant::Notify::Middleware do
+describe Vagrant::Notify::Middleware::StartServer do
   let(:start_stack) { Vagrant.actions[:start].send(:stack) }
   let(:server_pid)  { 1234 }
   let(:local_data)  { Hash.new }
@@ -14,7 +14,7 @@ describe Vagrant::Notify::Middleware do
 
   it 'gets called before provision middleware when starting machine' do
     provision_index  = start_stack.index([Vagrant::Action::VM::Provision, [], nil])
-    middleware_index = start_stack.index([Vagrant::Notify::Middleware, [], nil])
+    middleware_index = start_stack.index([described_class, [], nil])
 
     provision_index.should > middleware_index
   end
