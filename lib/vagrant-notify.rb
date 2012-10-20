@@ -1,4 +1,5 @@
 require 'vagrant'
+require 'eventmachine'
 
 require 'vagrant-notify/middleware'
 require 'vagrant-notify/server'

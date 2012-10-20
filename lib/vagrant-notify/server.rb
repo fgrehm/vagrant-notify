@@ -1,12 +1,11 @@
 module Vagrant
   module Notify
-    module Server
+    class Server < EventMachine::Connection
       def receive_data(data)
-        `notify-send #{data}`
+        system("notify-send #{data}")
       end
 
       def self.run
-        require 'eventmachine'
         fork do
           $0 = 'vagrant-notify-server'
           EventMachine::run {
