@@ -13,8 +13,8 @@ module Vagrant
         require 'eventmachine'
 
         EventMachine::run {
+          # TODO: Add configuration for which port to use
           EventMachine::start_server "127.0.0.1", 8081, self
-          puts 'running echo server on 8081'
         }
       end
     end
