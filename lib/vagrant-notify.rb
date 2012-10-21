@@ -16,6 +16,6 @@ module Vagrant
 end
 
 Vagrant.actions[:start].insert_before(Vagrant::Action::VM::Provision, Vagrant::Notify::Middleware::StartServer)
-Vagrant.actions[:start].insert_before(Vagrant::Action::VM::Provision, Vagrant::Notify::Middleware::InstallCommand)
+Vagrant.actions[:start].insert_after(Vagrant::Action::VM::Boot, Vagrant::Notify::Middleware::InstallCommand)
 
 Vagrant.actions[:halt].insert_before(Vagrant::Action::VM::Halt, Vagrant::Notify::Middleware::StopServer)

@@ -17,11 +17,11 @@ describe Vagrant::Notify::Middleware::InstallCommand do
     ERB.stub(:new => template)
   end
 
-  it 'gets called before provision middleware when starting machine' do
-    provision_index  = start_stack.index([Vagrant::Action::VM::Provision, [], nil])
+  it 'gets called after boot middleware when starting machine' do
+    boot_index       = start_stack.index([Vagrant::Action::VM::Boot, [], nil])
     middleware_index = start_stack.index([described_class, [], nil])
 
-    provision_index.should > middleware_index
+    boot_index.should < middleware_index
   end
 
   it "is able to identify host's ip" do
