@@ -1,8 +1,19 @@
 require 'vagrant'
 require 'eventmachine'
+require 'erb'
+require 'ostruct'
 
 require 'vagrant-notify/middleware'
 require 'vagrant-notify/server'
 require "vagrant-notify/version"
 
+module Vagrant
+  module Notify
+    def self.files_path
+      @file_path ||= File.expand_path(File.dirname(__FILE__) + '/../files')
+    end
+  end
+end
+
 Vagrant.actions[:start].insert_before(Vagrant::Action::VM::Provision, Vagrant::Notify::Middleware::StartServer)
+Vagrant.actions[:start].insert_before(Vagrant::Action::VM::Provision, Vagrant::Notify::Middleware::InstallCommand)
