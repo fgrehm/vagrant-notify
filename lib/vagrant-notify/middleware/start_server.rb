@@ -10,7 +10,8 @@ module Vagrant
           if pid = server_is_running?(env)
             env[:ui].info "Notification server is already running (#{pid})"
           else
-            run_server(env)
+            pid = run_server(env)
+            env[:ui].info "Notification server fired up (#{pid})"
           end
 
           @app.call(env)
@@ -26,7 +27,7 @@ module Vagrant
           local_data['vagrant-notify']['pid'] = pid
           local_data.commit
 
-          env[:ui].info "Notification server fired up (#{pid})"
+          pid
         end
 
         def server_is_running?(env)
