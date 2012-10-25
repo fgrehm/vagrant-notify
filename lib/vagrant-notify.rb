@@ -1,5 +1,5 @@
 require 'vagrant'
-require 'eventmachine'
+require 'socket'
 require 'erb'
 require 'ostruct'
 
