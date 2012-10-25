@@ -6,7 +6,7 @@ describe Vagrant::Notify::Middleware::InstallCommand do
   let(:compiled_command_path) { @env[:vm].env.tmp_path + 'vagrant-notify-send' }
   let(:target_tmp_path)       { '/tmp/notify-send' }
   let(:target_path)           { '/usr/bin/notify-send' }
-  let(:channel)               { mock(:channel, :sudo => true, :upload => true) }
+  let(:channel)               { mock(:channel, :sudo => true, :upload => true, :execute => true) }
   let(:get_ip_command)        { 'echo -n $SSH_CLIENT | cut -d" " -f1' }
 
   subject { described_class.new(@app, @env) }
@@ -44,6 +44,11 @@ describe Vagrant::Notify::Middleware::InstallCommand do
   it 'installs command for all users' do
     channel.should_receive(:sudo).with("mv #{target_tmp_path} #{target_path} && chmod +x #{target_path}")
     subject.stub(:host_ip => host_ip)
+    subject.call(@env)
+  end
+
+  it 'notifies user about script installation' do
+    @env[:ui].should_receive(:info).with('Compiling and installing notify-send script on guest machine')
     subject.call(@env)
   end
 end

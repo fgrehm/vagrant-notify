@@ -7,7 +7,8 @@ module Vagrant
         end
 
         def call(env)
-          # TODO: Logging
+          # TODO: Need to handle multi VMs setup
+          env[:ui].info('Stopping notification server')
 
           local_data = env[:vm].env.local_data
           local_data['vagrant-notify'] ||= Vagrant::Util::HashWithIndifferentAccess.new

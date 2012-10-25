@@ -8,7 +8,8 @@ module Vagrant
         end
 
         def call(env)
-          # TODO: Output logging info
+          # TODO: Need to figure out which command it'll use based on distro
+          env[:ui].info('Compiling and installing notify-send script on guest machine')
           path = compile_command(env)
           install_command_on_guest(env, path)
           @app.call(env)
@@ -36,6 +37,7 @@ module Vagrant
         end
 
         def install_command_on_guest(env, command_path)
+          # DISCUSS: Should we back up the original command?
           source = env[:vm].env.tmp_path + 'vagrant-notify-send'
           env[:vm].channel.upload(source.to_s, '/tmp/notify-send')
           env[:vm].channel.sudo('mv /tmp/notify-send /usr/bin/notify-send && chmod +x /usr/bin/notify-send')

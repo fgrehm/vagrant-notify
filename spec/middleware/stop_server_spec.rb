@@ -22,4 +22,9 @@ describe Vagrant::Notify::Middleware::StopServer do
     Process.should_receive(:kill).with('KILL', server_pid.to_i)
     subject.call(@env)
   end
+
+  it 'notifies user that server is stopping' do
+    @env[:ui].should_receive(:info).with('Stopping notification server')
+    subject.call(@env)
+  end
 end
