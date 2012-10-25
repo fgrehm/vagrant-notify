@@ -11,11 +11,8 @@ describe Vagrant::Notify::Middleware::StopServer do
     local_data.stub(:commit)
   end
 
-  it 'gets called before halt middleware when halting machine' do
-    halt_index       = halt_stack.index([Vagrant::Action::VM::Halt, [], nil])
-    middleware_index = halt_stack.index([described_class, [], nil])
-
-    halt_index.should > middleware_index
+  it 'gets called when halting machine' do
+    halt_stack.should include([described_class, [], nil])
   end
 
   it 'kills notification server' do

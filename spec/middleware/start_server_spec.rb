@@ -12,11 +12,8 @@ describe Vagrant::Notify::Middleware::StartServer do
     Vagrant::Notify::Server.stub(:run => server_pid)
   end
 
-  it 'gets called before provision middleware when starting machine' do
-    provision_index  = start_stack.index([Vagrant::Action::VM::Provision, [], nil])
-    middleware_index = start_stack.index([described_class, [], nil])
-
-    provision_index.should > middleware_index
+  it 'gets called when starting machine' do
+    start_stack.should include([described_class, [], nil])
   end
 
   context 'server is down' do
