@@ -1,8 +1,14 @@
 module Vagrant
   module Notify
     class Server
-      def receive_data(data)
-        system("notify-send #{data}")
+      def receive_data(client)
+        args = ''
+        while tmp = client.gets
+          args << tmp
+        end
+        client.close
+
+        system("notify-send #{args}")
       end
 
       def self.run
@@ -13,8 +19,7 @@ module Vagrant
           server = self.new
           loop {
             Thread.start(tcp_server.accept) do |client|
-              server.receive_data client.gets
-              client.close
+              server.receive_data(client)
             end
           }
         end
