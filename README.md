@@ -1,5 +1,7 @@
 # Vagrant::Notify
 
+[![Build Status](https://travis-ci.org/fgrehm/vagrant-notify.png)](https://travis-ci.org/fgrehm/vagrant-notify)
+
 A Vagrant plugin that forwards `notify-send` from guest to host machine, tested
 using Ubuntu as guest and host machine.
 
