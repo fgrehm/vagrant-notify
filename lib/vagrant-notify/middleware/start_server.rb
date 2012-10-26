@@ -30,6 +30,7 @@ module Vagrant
           pid
         end
 
+        # REFACTOR: This is duplicated on Middleware::StopServer
         def server_is_running?(env)
           begin
             pid = env[:vm].env.local_data.fetch('vagrant-notify', {}).fetch('pid', nil)
