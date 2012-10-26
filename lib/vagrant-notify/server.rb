@@ -14,8 +14,7 @@ module Vagrant
       def self.run
         fork do
           $0 = 'vagrant-notify-server'
-          # TODO: Add configuration for which port to use
-          tcp_server = TCPServer.open(8081)
+          tcp_server = TCPServer.open(Vagrant::Notify::server_port)
           server = self.new
           loop {
             Thread.start(tcp_server.accept) do |client|

@@ -8,7 +8,6 @@ module Vagrant
         end
 
         def call(env)
-          # TODO: Need to figure out which command it'll use based on distro
           env[:ui].info('Compiling and installing notify-send script on guest machine')
           path = compile_command(env)
           install_command_on_guest(env, path)
@@ -25,19 +24,15 @@ module Vagrant
 
         private
 
-        def host_port
-          # TODO: Add configuration for which port to use
-          8081
-        end
-
         def compile_command(env)
+          host_port = Vagrant::Notify::server_port
           template_binding = OpenStruct.new(:host_ip => host_ip(env), :host_port => host_port)
           command = ERB.new(File.read(@command_template_file)).result(template_binding.instance_eval { binding })
           File.open(env[:vm].env.tmp_path + 'vagrant-notify-send', 'w') { |f| f.write(command) }
         end
 
         def install_command_on_guest(env, command_path)
-          # DISCUSS: Should we back up the original command?
+          # DISCUSS: Should we back up the original command if present?
           source = env[:vm].env.tmp_path + 'vagrant-notify-send'
           env[:vm].channel.upload(source.to_s, '/tmp/notify-send')
           env[:vm].channel.sudo('mv /tmp/notify-send /usr/bin/notify-send && chmod +x /usr/bin/notify-send')

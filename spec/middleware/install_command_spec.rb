@@ -2,7 +2,7 @@ describe Vagrant::Notify::Middleware::InstallCommand do
   let(:start_stack)           { Vagrant.actions[:start].send(:stack) }
   let(:provision_stack)       { Vagrant.actions[:provision].send(:stack) }
   let(:host_ip)               { 'host-ip' }
-  let(:host_port)             { '8081' }
+  let(:host_port)             { Vagrant::Notify::server_port }
   let(:template)              { ERB.new('<%= host_ip %> <%= host_port %>') }
   let(:compiled_command_path) { @env[:vm].env.tmp_path + 'vagrant-notify-send' }
   let(:target_tmp_path)       { '/tmp/notify-send' }

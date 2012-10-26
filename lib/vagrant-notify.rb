@@ -9,8 +9,17 @@ require "vagrant-notify/version"
 
 module Vagrant
   module Notify
-    def self.files_path
-      @file_path ||= File.expand_path(File.dirname(__FILE__) + '/../files')
+    class << self
+      def server_port
+        @@server_port ||= 8081
+      end
+      def server_port=(server_port)
+        @@server_port = server_port
+      end
+
+      def files_path
+        @file_path ||= File.expand_path(File.dirname(__FILE__) + '/../files')
+      end
     end
   end
 end
