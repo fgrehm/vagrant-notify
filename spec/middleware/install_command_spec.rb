@@ -1,5 +1,6 @@
 describe Vagrant::Notify::Middleware::InstallCommand do
   let(:start_stack)           { Vagrant.actions[:start].send(:stack) }
+  let(:provision_stack)       { Vagrant.actions[:provision].send(:stack) }
   let(:host_ip)               { 'host-ip' }
   let(:host_port)             { '8081' }
   let(:template)              { ERB.new('<%= host_ip %> <%= host_port %>') }
@@ -22,6 +23,10 @@ describe Vagrant::Notify::Middleware::InstallCommand do
     middleware_index = start_stack.index([described_class, [], nil])
 
     boot_index.should < middleware_index
+  end
+
+  it 'gets called when provisioning machine' do
+    provision_stack.should include([described_class, [], nil])
   end
 
   it "is able to identify host's ip" do
