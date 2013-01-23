@@ -9,6 +9,10 @@ end
 
 require 'vagrant-notify/middleware'
 require 'vagrant-notify/server'
+# FIXME: This should be required based on Vagrant version installed, the new version
+#        seems to include a method for downloading out of the box:
+#           https://github.com/mitchellh/vagrant/blob/master/plugins/communicators/ssh/communicator.rb#L80
+require 'vagrant-notify/vagrant_ssh_ext'
 require "vagrant-notify/version"
 
 module Vagrant
