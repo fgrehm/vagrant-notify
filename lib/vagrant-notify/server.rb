@@ -1,8 +1,9 @@
 module Vagrant
   module Notify
     class Server
-      def initialize(uuid)
+      def initialize(uuid, env = Vagrant::Environment.new)
         @uuid = uuid
+        @env  = env
       end
 
       def receive_data(client)
@@ -11,6 +12,15 @@ module Vagrant
           args << tmp
         end
         client.close
+
+        # TODO: Specs needed!
+        if args =~ /-i '([^']+)'/
+          image     = $1
+          host_file = "/tmp/vagrant-notify-#{@uuid}-#{image.gsub('/', '-')}"
+          # TODO: Download based on ID
+          @env.vms[:default].channel.download(image, host_file) unless File.exists?(host_file)
+          args.gsub!(image, host_file)
+        end
 
         system("notify-send #{args}")
       end
