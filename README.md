@@ -28,7 +28,7 @@ will fire up on `8081` port and a [script](https://github.com/fgrehm/vagrant-not
 will be installed on the guest machine to replace the original `notify-send`
 command.
 
-If by any change your IP changes, you can run `vagrant provision` in order to
+If by any chance your IP changes, you can run `vagrant provision` in order to
 update the guest script with the new IP.
 
 In case you need to run the notification server on a different port, you can set
@@ -38,12 +38,7 @@ it from your `Vagrantfile`:
 Vagrant::Notify::server_port = 8888
 ```
 
-## TODO
 
-* Display guest machine icons
-* Support for Multi-VM environments
-* Notify provisioning status
-* Support for Mac OS
 
 ## Contributing
 
