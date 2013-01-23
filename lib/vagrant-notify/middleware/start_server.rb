@@ -20,7 +20,7 @@ module Vagrant
         private
 
         def run_server(env)
-          pid = Server.run
+          pid = Server.run(env)
 
           local_data = env[:vm].env.local_data
           local_data['vagrant-notify'] ||= Vagrant::Util::HashWithIndifferentAccess.new

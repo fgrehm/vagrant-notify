@@ -20,7 +20,7 @@ describe Vagrant::Notify::Middleware::StartServer do
     before { Process.stub(:getpgid).and_raise(Errno::ESRCH) }
 
     it 'fires up notification server when called' do
-      Vagrant::Notify::Server.should_receive(:run)
+      Vagrant::Notify::Server.should_receive(:run).with(@env)
       subject.call(@env)
     end
 
