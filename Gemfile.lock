@@ -2,7 +2,6 @@ PATH
   remote: .
   specs:
     vagrant-notify (0.0.1)
-      vagrant
 
 GEM
   remote: https://rubygems.org/
@@ -57,4 +56,5 @@ DEPENDENCIES
   rake
   rb-inotify
   rspec
+  vagrant
   vagrant-notify!
