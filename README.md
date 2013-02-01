@@ -8,17 +8,17 @@ using Ubuntu as guest and host machine.
 
 ## Installation
 
-Add this line to your application's Gemfile:
+If you use the gem version of Vagrant, use:
 
-    gem 'vagrant-notify'
+```terminal
+$ gem install vagrant-notify
+```
 
-And then execute:
+otherwise, use:
 
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install vagrant-notify
+```terminal
+$ vagrant gem install vagrant-notify
+```
 
 ## Usage
 
