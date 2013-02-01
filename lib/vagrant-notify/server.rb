@@ -8,9 +8,15 @@ module Vagrant
 
       def receive_data(client)
         args = ''
-        while tmp = client.gets
+        while tmp = client.gets and tmp !~ /^\s*$/
           args << tmp
         end
+
+        if args =~ /^GET/
+          client.puts "Hi! You just reached the vagrant notification server"
+          return client.close
+        end
+
         client.close
 
         # TODO: Specs needed!
