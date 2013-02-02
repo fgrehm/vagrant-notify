@@ -4,9 +4,7 @@ describe Vagrant::Notify::Server do
 
   subject { described_class.new('uuid') }
 
-  before do
-    subject.stub(:system => true)
-  end
+  before { subject.stub(:system => true, :download => true) }
 
   it 'runs notify-send with received data from client' do
     subject.should_receive(:system).with("notify-send #{arguments}")
@@ -16,6 +14,33 @@ describe Vagrant::Notify::Server do
   it 'closes connection after reading data' do
     client.should_receive(:close)
     subject.receive_data(client)
+  end
+
+  context 'notification with an icon' do
+    let(:arguments) { "-i 'foo/bar.jpg'" }
+
+    context 'icon hasnt been downloaded before' do
+      before { subject.receive_data(client) }
+
+      it 'downloads icon file to host machine' do
+        subject.should have_received(:download)
+      end
+
+      it 'rewrites icon path before sending the notification' do
+        subject.should have_received(:system).with("notify-send -i '/tmp/vagrant-notify-uuid-foo-bar.jpg'")
+      end
+    end
+
+    context 'icon file cache is present' do
+      before do
+        File.stub(:exists? => true)
+        subject.receive_data(client)
+      end
+
+      it 'does not download icon if was already downloaded' do
+        subject.should_not have_received(:download)
+      end
+    end
   end
 
   context 'incoming HTTP connections' do

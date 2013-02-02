@@ -52,8 +52,12 @@ module Vagrant
         icon = $1
         # TODO: Handle system icons
         host_file = "/tmp/vagrant-notify-#{@uuid}-#{icon.gsub('/', '-')}"
-        @env.vms[:default].channel.download(icon, host_file) unless File.exists?(host_file)
+        download(icon, host_file) unless File.exists?(host_file)
         args.gsub!(icon, host_file)
+      end
+
+      def download(icon, host_file)
+        @env.vms[:default].channel.download(icon, host_file)
       end
     end
   end
