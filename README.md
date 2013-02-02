@@ -31,12 +31,7 @@ command.
 If by any chance your IP changes, you can run `vagrant provision` in order to
 update the guest script with the new IP.
 
-In case you need to run the notification server on a different port, you can set
-it from your `Vagrantfile`:
 
-```ruby
-Vagrant::Notify::server_port = 8888
-```
 
 
 

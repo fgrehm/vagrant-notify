@@ -3,11 +3,11 @@ module Vagrant
     class Server
       HTTP_RESPONSE = "Hi! You just reached the vagrant notification server"
 
-      def self.run(env)
+      def self.run(env, port)
         uuid = env[:vm].uuid
         fork do
           $0 = 'vagrant-notify-server'
-          tcp_server = TCPServer.open(Vagrant::Notify::server_port)
+          tcp_server = TCPServer.open(port)
           server = self.new(uuid)
           loop {
             Thread.start(tcp_server.accept) do |client|
