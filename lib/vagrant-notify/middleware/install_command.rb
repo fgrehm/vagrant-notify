@@ -25,7 +25,9 @@ module Vagrant
         private
 
         def compile_command(env)
-          host_port = Vagrant::Notify::server_port
+          uuid       = env[:vm].uuid.to_s
+          local_data = env[:vm].env.local_data
+          host_port  = local_data['vagrant-notify'][uuid]['port']
           template_binding = OpenStruct.new(:host_ip => host_ip(env), :host_port => host_port)
           command = ERB.new(File.read(@command_template_file)).result(template_binding.instance_eval { binding })
           File.open(env[:vm].env.tmp_path + 'vagrant-notify-send', 'w') { |f| f.write(command) }

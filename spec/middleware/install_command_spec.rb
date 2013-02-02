@@ -3,19 +3,23 @@ describe Vagrant::Notify::Middleware::InstallCommand do
   let(:provision_stack)       { Vagrant.actions[:provision].send(:stack) }
   let(:resume_stack)          { Vagrant.actions[:resume].send(:stack) }
   let(:host_ip)               { 'host-ip' }
-  let(:host_port)             { Vagrant::Notify::server_port }
+  let(:host_port)             { 789 }
   let(:template)              { ERB.new('<%= host_ip %> <%= host_port %>') }
   let(:compiled_command_path) { @env[:vm].env.tmp_path + 'vagrant-notify-send' }
   let(:target_tmp_path)       { '/tmp/notify-send' }
   let(:target_path)           { '/usr/bin/notify-send' }
   let(:channel)               { mock(:channel, :sudo => true, :upload => true, :execute => true) }
   let(:get_ip_command)        { 'echo -n $SSH_CLIENT | cut -d" " -f1' }
+  let(:uuid)                  { @env[:vm].uuid.to_s }
+  let(:local_data)            { Hash.new }
 
   subject { described_class.new(@app, @env) }
 
   before do
     @app, @env = action_env(vagrant_env.vms.values.first.env)
     @env[:vm].stub(:channel => channel)
+    @env[:vm].env.stub(:local_data => local_data)
+    local_data['vagrant-notify'] = { uuid => {'port' => host_port } }
     ERB.stub(:new => template)
   end
 
