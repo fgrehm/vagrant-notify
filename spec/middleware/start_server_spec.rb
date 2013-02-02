@@ -1,7 +1,8 @@
 describe Vagrant::Notify::Middleware::StartServer do
-  let(:start_stack) { Vagrant.actions[:start].send(:stack) }
-  let(:server_pid)  { 1234 }
-  let(:local_data)  { Hash.new }
+  let(:start_stack)  { Vagrant.actions[:start].send(:stack) }
+  let(:resume_stack) { Vagrant.actions[:resume].send(:stack) }
+  let(:server_pid)   { 1234 }
+  let(:local_data)   { Hash.new }
 
   subject { described_class.new(@app, @env) }
 
@@ -14,6 +15,10 @@ describe Vagrant::Notify::Middleware::StartServer do
 
   it 'gets called when starting machine' do
     start_stack.should include([described_class, [], nil])
+  end
+
+  it 'gets called when starting machine' do
+    resume_stack.should include([described_class, [], nil])
   end
 
   context 'server is down' do

@@ -1,7 +1,8 @@
 describe Vagrant::Notify::Middleware::StopServer do
-  let(:halt_stack) { Vagrant.actions[:halt].send(:stack) }
-  let(:server_pid) { '1234' }
-  let(:local_data) { { 'vagrant-notify' => { 'pid' => server_pid } } }
+  let(:halt_stack)    { Vagrant.actions[:halt].send(:stack) }
+  let(:suspend_stack) { Vagrant.actions[:halt].send(:stack) }
+  let(:server_pid)    { '1234' }
+  let(:local_data)    { { 'vagrant-notify' => { 'pid' => server_pid } } }
 
   subject { described_class.new(@app, @env) }
 
@@ -13,6 +14,10 @@ describe Vagrant::Notify::Middleware::StopServer do
 
   it 'gets called when halting machine' do
     halt_stack.should include([described_class, [], nil])
+  end
+
+  it 'gets called when suspending machine' do
+    suspend_stack.should include([described_class, [], nil])
   end
 
   context 'server is down' do
