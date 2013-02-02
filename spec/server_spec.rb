@@ -17,4 +17,26 @@ describe Vagrant::Notify::Server do
     client.should_receive(:close)
     subject.receive_data(client)
   end
+
+  context 'incoming HTTP connections' do
+    let(:client) do
+      StringIO.new("GET some/path\n\n").tap { |s|
+        s.stub(:close => true, :puts => true)
+      }
+    end
+
+    before { subject.receive_data(client) }
+
+    it 'responds with a friendly message' do
+      client.should have_received(:puts).with(described_class::HTTP_RESPONSE)
+    end
+
+    it 'does not issue system commands' do
+      subject.should_not have_received(:system)
+    end
+
+    it 'closes connection' do
+      client.should have_received(:close)
+    end
+  end
 end
