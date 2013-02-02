@@ -17,4 +17,6 @@ module VagrantSshExt
   end
 end
 
-Vagrant::Communication::SSH.send :include, VagrantSshExt
+unless Vagrant::Communication::SSH.public_methods.include?('download')
+  Vagrant::Communication::SSH.send :include, VagrantSshExt
+end
