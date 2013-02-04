@@ -6,7 +6,7 @@ module Vagrant
       def self.run(env, port)
         uuid = env[:vm].uuid
         fork do
-          $0 = 'vagrant-notify-server'
+          $0 = "vagrant-notify-server (#{port})"
           tcp_server = TCPServer.open(port)
           server = self.new(uuid)
           loop {
