@@ -19,7 +19,7 @@ describe Vagrant::Notify::Middleware::StartServer do
     start_stack.should include([described_class, [], nil])
   end
 
-  it 'gets called when starting machine' do
+  it 'gets called when resuming machine' do
     resume_stack.should include([described_class, [], nil])
   end
 
