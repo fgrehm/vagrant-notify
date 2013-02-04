@@ -25,16 +25,21 @@ module Vagrant
         end
 
         def cleanup_local_data(env)
+          uuid = env[:vm].uuid.to_s
           local_data = env[:vm].env.local_data
           local_data['vagrant-notify'] ||= Vagrant::Util::HashWithIndifferentAccess.new
-          local_data['vagrant-notify'].delete('pid')
+          local_data['vagrant-notify'].delete(uuid)
           local_data.commit
         end
 
         # REFACTOR: This is duplicated on Middleware::StartServer
         def server_is_running?(env)
+          uuid = env[:vm].uuid.to_s
           begin
-            pid = env[:vm].env.local_data.fetch('vagrant-notify', {}).fetch('pid', nil)
+            pid = env[:vm].env.local_data.
+              fetch('vagrant-notify', {}).
+              fetch(uuid, {}).
+              fetch('pid', nil)
             return false unless pid
 
             Process.getpgid(pid.to_i)

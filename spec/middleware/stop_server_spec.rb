@@ -2,7 +2,8 @@ describe Vagrant::Notify::Middleware::StopServer do
   let(:halt_stack)    { Vagrant.actions[:halt].send(:stack) }
   let(:suspend_stack) { Vagrant.actions[:halt].send(:stack) }
   let(:server_pid)    { '1234' }
-  let(:local_data)    { { 'vagrant-notify' => { 'pid' => server_pid } } }
+  let(:uuid)          { @env[:vm].uuid.to_s }
+  let(:local_data)    { { 'vagrant-notify' => { uuid => { 'pid' => server_pid } } } }
 
   subject { described_class.new(@app, @env) }
 
@@ -32,7 +33,7 @@ describe Vagrant::Notify::Middleware::StopServer do
   context 'server is up' do
     before do
       Process.stub(:getpgid => true)
-      local_data['vagrant-notify'] = { 'pid' => server_pid }
+      local_data['vagrant-notify'] = { uuid => { 'pid' => server_pid } }
     end
 
     it 'notifies user that server is stopping' do

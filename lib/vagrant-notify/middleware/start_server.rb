@@ -26,13 +26,11 @@ module Vagrant
           pid  = Server.run(@env, port)
 
           local_data = @env[:vm].env.local_data
-          local_data['vagrant-notify'] ||= Vagrant::Util::HashWithIndifferentAccess.new
-          local_data['vagrant-notify'][uuid] ||= Vagrant::Util::HashWithIndifferentAccess.new
-          local_data['vagrant-notify'][uuid]['pid'] = pid
-          local_data['vagrant-notify'][uuid]['port'] = port
+          config = local_data['vagrant-notify'] ||= Vagrant::Util::HashWithIndifferentAccess.new
+          config.merge!(uuid => {'pid' => pid, 'port' => port })
           local_data.commit
 
-          [next_available_port, pid]
+          [port, pid]
         end
 
         def next_available_port
@@ -59,8 +57,12 @@ module Vagrant
 
         # REFACTOR: This is duplicated on Middleware::StopServer
         def server_is_running?
+          uuid = @env[:vm].uuid.to_s
           begin
-            pid = @env[:vm].env.local_data.fetch('vagrant-notify', {}).fetch('pid', nil)
+            pid = @env[:vm].env.local_data.
+              fetch('vagrant-notify', {}).
+              fetch(uuid, {}).
+              fetch('pid', nil)
             return false unless pid
 
             Process.getpgid(pid)

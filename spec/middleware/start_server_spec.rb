@@ -56,7 +56,7 @@ describe Vagrant::Notify::Middleware::StartServer do
 
       before do
         Vagrant::Notify::Server.stub(:run => new_pid)
-        local_data['vagrant-notify'] = { uuid => {'pid' => server_pid } }
+        local_data['vagrant-notify'] = { uuid => { 'pid' => server_pid } }
       end
 
       it 'updates server PID' do
@@ -69,7 +69,7 @@ describe Vagrant::Notify::Middleware::StartServer do
   context 'server is up' do
     before do
       Process.stub(:getpgid => true)
-      local_data['vagrant-notify'] = { 'pid' => server_pid }
+      local_data['vagrant-notify'] = { uuid => { 'pid' => server_pid } }
     end
 
     it 'does not start a new server instance' do
