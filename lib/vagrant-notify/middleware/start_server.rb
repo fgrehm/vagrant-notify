@@ -42,9 +42,10 @@ module Vagrant
             raise 'Unable to find a port to bind the notification server to'
           end
 
-          # Set the port up to be the first one and add that port to
-          # the used list.
-          port = range.shift
+          # Set the port up to be the last one since vagrant's port collision handler
+          # will use the first as in:
+          #   https://github.com/mitchellh/vagrant/blob/1-0-stable/lib/vagrant/action/vm/check_port_collisions.rb#L51
+          port = range.pop
         end
 
         def used_ports
