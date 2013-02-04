@@ -23,8 +23,8 @@ module Vagrant
 end
 
 Vagrant.actions[:start].tap do |start|
-  start.use          Vagrant::Notify::Middleware::StartServer
-  start.insert_after Vagrant::Action::VM::Boot, Vagrant::Notify::Middleware::InstallCommand
+  start.insert_after Vagrant::Action::VM::Boot,                Vagrant::Notify::Middleware::StartServer
+  start.insert_after Vagrant::Notify::Middleware::StartServer, Vagrant::Notify::Middleware::InstallCommand
 end
 Vagrant.actions[:resume].tap do |start|
   start.use Vagrant::Notify::Middleware::StartServer
