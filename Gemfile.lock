@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    vagrant-notify (0.0.1)
+    vagrant-notify (0.1.0)
 
 GEM
   remote: https://rubygems.org/
