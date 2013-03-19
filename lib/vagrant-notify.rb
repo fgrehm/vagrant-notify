@@ -9,7 +9,6 @@ end
 
 require 'vagrant-notify/middleware'
 require 'vagrant-notify/server'
-require 'vagrant-notify/vagrant_ssh_ext'
 require "vagrant-notify/version"
 
 module Vagrant
