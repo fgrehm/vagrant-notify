@@ -3,9 +3,9 @@ require 'spec_helper'
 require 'fileutils'
 require 'tmpdir'
 
-require 'vagrant-notify/action/prepare_data_dir'
+require 'vagrant-notify/action/prepare_data'
 
-describe Vagrant::Notify::Action::PrepareDataDir do
+describe Vagrant::Notify::Action::PrepareData do
   let(:data_dir) { Pathname.new(Dir.mktmpdir) }
   let(:app)      { lambda { |env| } }
   let(:env)      { {machine: mock(data_dir: data_dir)} }

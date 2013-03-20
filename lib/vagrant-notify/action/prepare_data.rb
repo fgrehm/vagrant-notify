@@ -3,10 +3,10 @@ require_relative '../data'
 module Vagrant
   module Notify
     module Action
-      class PrepareDataDir
+      class PrepareData
         def initialize(app, env)
           @app    = app
-          @logger = Log4r::Logger.new("vagrant::notify::action::prepare_data_dir")
+          @logger = Log4r::Logger.new("vagrant::notify::action::prepare_data")
         end
 
         def call(env)
