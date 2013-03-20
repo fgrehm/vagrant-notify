@@ -12,10 +12,14 @@ describe Vagrant::Notify::Action::PrepareDataDir do
 
   subject { described_class.new(app, env) }
 
-  after { FileUtils.rm_rf data_dir.to_s }
+  before { subject.call(env) }
+  after  { FileUtils.rm_rf data_dir.to_s }
 
   it 'creates the directory to keep vagrant notify data' do
-    subject.call(env)
     data_dir.join('vagrant-notify').should be_directory
+  end
+
+  it 'assigns a data object to the environment' do
+    env[:notify_data].should be_a(Vagrant::Notify::Data)
   end
 end
