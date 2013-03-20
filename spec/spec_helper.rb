@@ -1,4 +1,5 @@
-require 'vagrant-notify'
+require 'vagrant'
+
 require 'rspec-spies'
 
 RSpec.configure do |config|

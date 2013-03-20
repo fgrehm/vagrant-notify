@@ -1,3 +1,5 @@
+require 'vagrant-notify/server'
+
 describe Vagrant::Notify::Server do
   let(:arguments) { "-- '20 examples, 1 failure\n10 seconds'" }
   let(:client)    { StringIO.new(arguments) }
