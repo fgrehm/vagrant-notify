@@ -4,22 +4,27 @@ module Vagrant
       HTTP_RESPONSE = "Hi! You just reached the vagrant notification server"
 
       def self.run(env, port)
-        id = env[:machine].id
+        id           = env[:machine].id
+        communicator = env[:machine].communicate
         fork do
           $0 = "vagrant-notify-server (#{port})"
           tcp_server = TCPServer.open(port)
-          server = self.new(id)
+          server = self.new(id, communicator)
           loop {
-            Thread.start(tcp_server.accept) do |client|
-              server.receive_data(client)
-            end
+            Thread.start(tcp_server.accept) { |client|
+              begin
+                server.receive_data(client)
+              rescue => ex
+                File.open("/tmp/vagrant-notify-error-#{id}.log", 'a') { |f| f.puts ex.message }
+              end
+            }
           }
         end
       end
 
-      def initialize(id, env = Vagrant::Environment.new)
-        @id = id
-        @env  = env
+      def initialize(id, communicator)
+        @id           = id
+        @communicator = communicator
       end
 
       def receive_data(client)
@@ -57,7 +62,7 @@ module Vagrant
       end
 
       def download(icon, host_file)
-        @env.vms[:default].channel.download(icon, host_file)
+        @communicator.download(icon, host_file)
       end
     end
   end
