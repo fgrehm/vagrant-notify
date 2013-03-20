@@ -18,7 +18,7 @@ module Vagrant
         private
 
         def valid_process?(pid)
-          Process.getpgid(pid) if pid
+          Process.getpgid(pid.to_i) if pid
         rescue Errno::ESRCH
           false
         end
