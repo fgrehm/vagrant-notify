@@ -1,8 +1,5 @@
 require 'spec_helper'
 
-require 'fileutils'
-require 'tmpdir'
-
 require 'vagrant-notify/data'
 
 describe Vagrant::Notify::Data do

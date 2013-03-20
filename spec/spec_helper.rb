@@ -1,5 +1,8 @@
 require 'vagrant'
 
+require 'fileutils'
+require 'tmpdir'
+
 require 'rspec-spies'
 
 RSpec.configure do |config|

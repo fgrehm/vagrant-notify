@@ -1,8 +1,5 @@
 require 'spec_helper'
 
-require 'fileutils'
-require 'tmpdir'
-
 require 'vagrant-notify/action/prepare_data'
 
 describe Vagrant::Notify::Action::PrepareData do
