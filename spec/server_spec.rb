@@ -1,10 +1,11 @@
 require 'vagrant-notify/server'
 
 describe Vagrant::Notify::Server do
-  let(:arguments) { "-- '20 examples, 1 failure\n10 seconds'" }
-  let(:client)    { StringIO.new(arguments) }
+  let(:arguments)  { "-- '20 examples, 1 failure\n10 seconds'" }
+  let(:client)     { StringIO.new(arguments) }
+  let(:machine_id) { 'machine-id' }
 
-  subject { described_class.new('uuid') }
+  subject { described_class.new(machine_id) }
 
   before { subject.stub(:system => true, :download => true) }
 
@@ -29,7 +30,7 @@ describe Vagrant::Notify::Server do
       end
 
       it 'rewrites icon path before sending the notification' do
-        subject.should have_received(:system).with("notify-send -i '/tmp/vagrant-notify-uuid-foo-bar.jpg'")
+        subject.should have_received(:system).with("notify-send -i '/tmp/vagrant-notify-#{machine_id}-foo-bar.jpg'")
       end
     end
 

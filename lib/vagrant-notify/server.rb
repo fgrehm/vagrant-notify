@@ -4,11 +4,11 @@ module Vagrant
       HTTP_RESPONSE = "Hi! You just reached the vagrant notification server"
 
       def self.run(env, port)
-        uuid = env[:vm].uuid
+        id = env[:machine].id
         fork do
           $0 = "vagrant-notify-server (#{port})"
           tcp_server = TCPServer.open(port)
-          server = self.new(uuid)
+          server = self.new(id)
           loop {
             Thread.start(tcp_server.accept) do |client|
               server.receive_data(client)
@@ -17,8 +17,8 @@ module Vagrant
         end
       end
 
-      def initialize(uuid, env = Vagrant::Environment.new)
-        @uuid = uuid
+      def initialize(id, env = Vagrant::Environment.new)
+        @id = id
         @env  = env
       end
 
@@ -51,7 +51,7 @@ module Vagrant
         return unless args =~ /-i '([^']+)'/
         icon = $1
         # TODO: Handle system icons
-        host_file = "/tmp/vagrant-notify-#{@uuid}-#{icon.gsub('/', '-')}"
+        host_file = "/tmp/vagrant-notify-#{@id}-#{icon.gsub('/', '-')}"
         download(icon, host_file) unless File.exists?(host_file)
         args.gsub!(icon, host_file)
       end
