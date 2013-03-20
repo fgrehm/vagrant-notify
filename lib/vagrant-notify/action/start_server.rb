@@ -6,7 +6,7 @@ module Vagrant
       class StartServer
         # TODO: This should come from vm configuration or be automatically
         #       assigned
-        PORT = '8080'
+        PORT = '9999'
 
         def initialize(app, env)
           @app = app
