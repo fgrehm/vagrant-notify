@@ -15,7 +15,7 @@ module Vagrant
   module Notify
     class << self
       def files_path
-        @file_path ||= File.expand_path(File.dirname(__FILE__) + '/../files')
+        @file_path ||= Pathname.new(File.dirname(__FILE__)).join('..', 'files').expand_path
       end
     end
   end
