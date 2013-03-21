@@ -13,11 +13,7 @@ module Vagrant
           server = self.new(id, machine_name, provider)
           loop {
             Thread.start(tcp_server.accept) { |client|
-              begin
-                server.receive_data(client)
-              rescue => ex
-                File.open("/tmp/vagrant-notify-error-#{id}.log", 'a') { |f| f.puts ex.message }
-              end
+              server.receive_data(client)
             }
           }
         end
@@ -38,6 +34,10 @@ module Vagrant
           system("notify-send #{args}")
         end
         client.close
+      rescue => ex
+        File.open("/tmp/vagrant-notify-error-#{@id}.log", 'a+') do |log|
+          log.puts "#{ex.message}"
+        end
       end
 
       private
