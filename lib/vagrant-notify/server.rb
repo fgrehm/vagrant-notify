@@ -5,11 +5,12 @@ module Vagrant
 
       def self.run(env, port)
         id           = env[:machine].id
-        communicator = env[:machine].communicate
+        machine_name = env[:machine].name
+        provider     = env[:machine].provider_name
         fork do
           $0 = "vagrant-notify-server (#{port})"
           tcp_server = TCPServer.open(port)
-          server = self.new(id, communicator)
+          server = self.new(id, machine_name, provider)
           loop {
             Thread.start(tcp_server.accept) { |client|
               begin
@@ -22,9 +23,10 @@ module Vagrant
         end
       end
 
-      def initialize(id, communicator)
+      def initialize(id, machine_name = :default, provider = :virtualbox)
         @id           = id
-        @communicator = communicator
+        @machine_name = machine_name
+        @provider     = provider
       end
 
       def receive_data(client)
@@ -62,7 +64,16 @@ module Vagrant
       end
 
       def download(icon, host_file)
-        @communicator.download(icon, host_file)
+        communicator.download(icon, host_file)
+      end
+
+      def communicator
+        @communicator ||=
+          begin
+            env     = Vagrant::Environment.new
+            machine = env.machine(@machine_name, @provider)
+            machine.communicate
+          end
       end
     end
   end

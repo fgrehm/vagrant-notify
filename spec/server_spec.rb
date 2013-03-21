@@ -5,7 +5,7 @@ describe Vagrant::Notify::Server do
   let(:client)     { StringIO.new(arguments) }
   let(:machine_id) { 'machine-id' }
 
-  subject { described_class.new(machine_id, mock) }
+  subject { described_class.new(machine_id) }
 
   before { subject.stub(:system => true, :download => true) }
 
