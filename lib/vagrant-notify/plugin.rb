@@ -8,6 +8,12 @@ module Vagrant
         require_relative './action'
         # TODO: This should be generic
         hook.after VagrantPlugins::ProviderVirtualBox::Action::Boot, Vagrant::Notify::Action.action_start_server
+
+        if defined?(Vagrant::LXC)
+          # TODO: Require just the boot file once its "require dependencies" are sorted out
+          require 'vagrant-lxc/action'
+          hook.after Vagrant::LXC::Action::Boot, Vagrant::Notify::Action.action_start_server
+        end
       end
 
       action_hook 'install-command-after-provisioning', :machine_action_provision do |hook|
