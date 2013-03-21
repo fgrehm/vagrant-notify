@@ -23,7 +23,7 @@ module Vagrant
 
       action_hook 'stop-server-after-halting', :machine_action_halt do |hook|
         require_relative './action'
-        hook.after Vagrant::Action::Builtin::GracefulHalt, Vagrant::Notify::Action.action_stop_server
+        hook.before Vagrant::Action::Builtin::GracefulHalt, Vagrant::Notify::Action.action_stop_server
       end
 
       # TODO: This should be generic, we don't want to hard code every single
