@@ -26,4 +26,10 @@ describe Vagrant::Notify::Data do
   it 'handles unset keys' do
     subject[key].should be_nil
   end
+
+  it 'removes the file when a value is set to nil' do
+    subject.tap { |s| s[key] = value; s[key] = nil }
+
+    data_dir.join(key.to_s).should_not be_file
+  end
 end

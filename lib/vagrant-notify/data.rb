@@ -6,7 +6,12 @@ module Vagrant
       end
 
       def []=(key, value)
-        @data_dir.join(key.to_s).open("w+") { |f| f.write(value) }
+        file = @data_dir.join(key.to_s)
+        if value.nil?
+          file.delete
+        else
+          file.open("w+") { |f| f.write(value) }
+        end
       end
 
       def [](key)
