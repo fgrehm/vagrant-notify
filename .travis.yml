@@ -1,8 +1,5 @@
 language: ruby
 bundler_args: --without development
-before_script:
-  - sudo apt-get -y install linux-headers-$(uname -r)
-  - sudo apt-get install virtualbox
 rvm:
   - 1.9.3
   - 2.0.0
