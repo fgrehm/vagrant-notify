@@ -68,12 +68,9 @@ module Vagrant
       end
 
       def communicator
-        @communicator ||=
-          begin
-            env     = Vagrant::Environment.new
-            machine = env.machine(@machine_name, @provider)
-            machine.communicate
-          end
+        env     = Vagrant::Environment.new
+        machine = env.machine(@machine_name, @provider)
+        machine.communicate
       end
     end
   end
