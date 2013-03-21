@@ -30,6 +30,24 @@ module Vagrant
             end
           end
         end
+
+        def action_stop_server
+          Vagrant::Action::Builder.new.tap do |b|
+            b.use Call, CheckProvider do |env, b2|
+              next if !env[:result]
+
+              b2.use PrepareData
+              b2.use Call, ServerIsRunning do |env2, b3|
+                if env2[:result]
+                  b3.use StopServer
+                  # TODO: b3.use RestoreCommandBackup
+                else
+                  # TODO: b3.use MessageServerStopped
+                end
+              end
+            end
+          end
+        end
       end
     end
   end

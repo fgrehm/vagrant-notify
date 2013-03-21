@@ -13,6 +13,11 @@ module Vagrant
       action_hook 'install-command-after-provisioning', :machine_action_provision do |hook|
         hook.after Vagrant::Action::Builtin::Provision, Vagrant::Notify::Action.action_start_server
       end
+
+      action_hook 'stop-server-after-halting' do |hook|
+        require_relative './action'
+        hook.after Vagrant::Action::Builtin::GracefulHalt, Vagrant::Notify::Action.action_stop_server
+      end
     end
   end
 end
