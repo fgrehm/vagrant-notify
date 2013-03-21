@@ -27,8 +27,12 @@ command.
 If by any chance your IP changes, you can run `vagrant provision` in order to
 update the guest script with the new IP.
 
-As of now, the plugin is not supported on multi vm environments, it used to be
-for the Vagrant < 1.1 version and I'm planning to fix that as soon as I have a chance.
+## Known issues
+
+* Does not work properly on multi vm environments, it used to work on a Vagrant
+  < 1.1 version and I'm planning to fix that as soon as I have a chance.
+
+* vagrant's `suspend` does not stop the notification server
 
 
 ## Contributing
