@@ -24,8 +24,10 @@ module Vagrant
                   # TODO: b3.use CheckServerPortCollision
                   b3.use StartServer
                   # TODO: b3.use BackupCommand
-                  b3.use InstallCommand
                 end
+                # Always install the command to make sure we can fix stale ips
+                # on the guest machine
+                b3.use InstallCommand
               end
             end
           end
