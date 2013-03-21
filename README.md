@@ -8,17 +8,13 @@ using Ubuntu as guest and host machine.
 
 ## Installation
 
-If you use the gem version of Vagrant, use:
+Make sure you have Vagrant >= 1.1 around and run:
 
 ```terminal
-$ gem install vagrant-notify
+$ vagrant plugin install vagrant-notify
 ```
 
-otherwise, use:
 
-```terminal
-$ vagrant gem install vagrant-notify
-```
 
 ## Usage
 
@@ -31,8 +27,8 @@ command.
 If by any chance your IP changes, you can run `vagrant provision` in order to
 update the guest script with the new IP.
 
-
-
+As of now, the plugin is not supported on multi vm environments, it used to be
+for the Vagrant < 1.1 version and I'm planning to fix that as soon as I have a chance.
 
 
 ## Contributing
