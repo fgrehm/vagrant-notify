@@ -7,10 +7,10 @@ module Vagrant
         end
 
         def call(env)
-          @app.call env
-
           path = compile_command(env)
           install_command_on_guest(env, path)
+
+          @app.call env
         end
 
         private

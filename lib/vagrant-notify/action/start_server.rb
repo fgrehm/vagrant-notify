@@ -15,6 +15,7 @@ module Vagrant
         def call(env)
           env[:notify_data][:pid]  = Server.run(env, PORT)
           env[:notify_data][:port] = PORT
+
           @app.call env
         end
       end
