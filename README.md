@@ -18,8 +18,7 @@ $ vagrant plugin install vagrant-notify
 
 ## Usage
 
-Add a `Vagrant.require_plugin 'vagrant-notify'` to your `Vagrantfile` and
-whenever you run `vagrant up`, a Ruby [TCPServer](http://www.ruby-doc.org/stdlib-1.9.3/libdoc/socket/rdoc/TCPServer.html)
+Whenever you run `vagrant up`, a Ruby [TCPServer](http://www.ruby-doc.org/stdlib-1.9.3/libdoc/socket/rdoc/TCPServer.html)
 will fire up on `9999` port and a [script](https://github.com/fgrehm/vagrant-notify/blob/master/files/notify-send.erb)
 will be copied over to the guest machine to replace the original `notify-send`
 command.
