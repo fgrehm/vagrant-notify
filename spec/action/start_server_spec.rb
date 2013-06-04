@@ -6,12 +6,13 @@ describe Vagrant::Notify::Action::StartServer do
   let(:app)  { lambda { |env| } }
   let(:env)  { {notify_data: {}} }
   let(:pid)  { '42' }
-  let(:port) { described_class::PORT }
+  let(:port) { '1234' }
 
   subject { described_class.new(app, env) }
 
   before do
     Vagrant::Notify::Server.stub(:run => pid)
+    subject.stub(next_available_port: port)
     subject.call(env)
   end
 
@@ -26,4 +27,6 @@ describe Vagrant::Notify::Action::StartServer do
   it 'persists used port' do
     env[:notify_data][:port].should == port
   end
+
+  pending 'identifies the next available port'
 end
