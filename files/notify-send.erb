@@ -8,6 +8,7 @@
 require 'rubygems'
 require 'socket'
 require 'optparse'
+require 'fileutils'
 
 options = {}
 OptionParser.new do |opts|
@@ -22,6 +23,12 @@ OptionParser.new do |opts|
   opts.on('-v', '--version')                 { |v| options[:v] = v }
 
 end.parse!
+
+if options[:i]
+  new_filename = options[:i].gsub('/', '-')
+  FileUtils.cp options[:i], "<%= shared_folder %>/#{new_filename}"
+  options[:i]  = new_filename
+end
 
 cmd = options.map do |key, value|
   "-#{key} '#{value}'"

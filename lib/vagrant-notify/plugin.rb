@@ -17,9 +17,12 @@ module Vagrant
         end
       end
 
-      action_hook 'install-command-after-provision', :machine_action_provision do |hook|
-        hook.after Vagrant::Action::Builtin::Provision, Vagrant::Notify::Action.action_start_server
+      share_folder_hook = lambda do |hook|
+        require_relative './action'
+        hook.after Vagrant::Action::Builtin::Provision, Vagrant::Notify::Action::SetSharedFolder
       end
+      action_hook 'set-shared-folder-and-start-notify-server-on-machine-up',     :machine_action_up, &share_folder_hook
+      action_hook 'set-shared-folder-and-start-notify-server-on-machine-reload', :machine_action_reload, &share_folder_hook
 
       action_hook 'stop-server-after-halt' do |hook|
         require_relative './action'

@@ -30,17 +30,21 @@ module Vagrant
         if http_request?(args)
           client.puts HTTP_RESPONSE
         else
-          download_icon!(args)
+          fix_icon_path!(args)
           system("notify-send #{args}")
         end
         client.close
       rescue => ex
-        File.open("/tmp/vagrant-notify-error-#{@id}.log", 'a+') do |log|
-          log.puts "#{ex.message}"
-        end
+        log ex.message
       end
 
       private
+
+      def log(message)
+        File.open("/tmp/vagrant-notify-error-#{@id}.log", 'a+') do |log|
+          log.puts "#{message}"
+        end
+      end
 
       def read_args(client)
         ''.tap do |args|
@@ -54,23 +58,12 @@ module Vagrant
         args =~ /^GET/
       end
 
-      def download_icon!(args)
+      def fix_icon_path!(args)
         return unless args =~ /-i '([^']+)'/
         icon = $1
         # TODO: Handle system icons
-        host_file = "/tmp/vagrant-notify-#{@id}-#{icon.gsub('/', '-')}"
-        download(icon, host_file) unless File.exists?(host_file)
+        host_file = "/tmp/vagrant-notify/#{@id}/#{icon.gsub('/', '-')}"
         args.gsub!(icon, host_file)
-      end
-
-      def download(icon, host_file)
-        communicator.download(icon, host_file)
-      end
-
-      def communicator
-        env     = Vagrant::Environment.new
-        machine = env.machine(@machine_name, @provider)
-        machine.communicate
       end
     end
   end
