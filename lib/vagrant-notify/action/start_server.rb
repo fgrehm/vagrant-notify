@@ -43,7 +43,9 @@ module Vagrant
           # Set the port up to be the last one since vagrant's port collision handler
           # will use the first as in:
           #   https://github.com/mitchellh/vagrant/blob/master/lib/vagrant/action/builtin/handle_forwarded_port_collisions.rb#L84
-          port = usable_ports.to_a.sort.last
+          usable_ports.to_a.sort.reverse.find do |port|
+            return port unless is_port_open?("127.0.0.1", port)
+          end
         end
 
         def with_forwarded_ports
