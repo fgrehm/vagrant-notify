@@ -27,7 +27,8 @@ module Vagrant
         def install_command_on_guest(env, command_path)
           source = env[:tmp_path].join 'vagrant-notify-send'
           env[:machine].communicate.upload(source.to_s, '/tmp/notify-send')
-          env[:machine].communicate.sudo('mv /usr/bin/{notify-send,notify-send.bkp}; mv /tmp/notify-send /usr/bin/notify-send && chmod +x /usr/bin/notify-send')
+          env[:machine].communicate.sudo('mv /usr/bin/{notify-send,notify-send.bkp}')
+          env[:machine].communicate.sudo('mv /tmp/notify-send /usr/bin/notify-send && chmod +x /usr/bin/notify-send')
         end
 
         ##

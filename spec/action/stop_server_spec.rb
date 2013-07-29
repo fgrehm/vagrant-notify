@@ -3,10 +3,12 @@ require 'spec_helper'
 require 'vagrant-notify/action/stop_server'
 
 describe Vagrant::Notify::Action::StopServer do
-  let(:app)  { lambda { |env| } }
-  let(:env)  { {notify_data: {pid: pid, port: 1234}} }
-  let(:pid)  { '42' }
-  let(:port) { described_class::PORT }
+  let(:app)          { lambda { |env| } }
+  let(:communicator) { mock(sudo: true) }
+  let(:machine)      { mock(communicate: communicator) }
+  let(:env)          { {notify_data: {pid: pid, port: 1234}, machine: machine} }
+  let(:pid)          { '42' }
+  let(:port)         { described_class::PORT }
 
   subject { described_class.new(app, env) }
 
