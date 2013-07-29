@@ -35,7 +35,7 @@ describe Vagrant::Notify::Action::InstallCommand do
   end
 
   it 'creates a backup for the available command' do
-    communicator.should have_received(:sudo).with("mv /usr/bin/{notify-send,notify-send.bkp}")
+    communicator.should have_received(:sudo).with("mv /usr/bin/{notify-send,notify-send.bkp}; exit 0")
   end
 
   it 'installs command for all users' do
