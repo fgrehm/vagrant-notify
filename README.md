@@ -19,7 +19,8 @@ $ vagrant plugin install vagrant-notify
 ## Usage
 
 Whenever you run `vagrant up`, a Ruby [TCPServer](http://www.ruby-doc.org/stdlib-1.9.3/libdoc/socket/rdoc/TCPServer.html)
-will fire up on `9999` port and a [script](https://github.com/fgrehm/vagrant-notify/blob/master/files/notify-send.erb)
+will fire up on a port within the [usable port range](https://github.com/mitchellh/vagrant/blob/master/config/default.rb#L14)
+and a [script](https://github.com/fgrehm/vagrant-notify/blob/master/files/notify-send.erb)
 will be copied over to the guest machine to replace the original `notify-send`
 command.
 
@@ -28,8 +29,6 @@ update the guest script with the new IP.
 
 ## Known issues
 
-* Does not work properly on multi vm environments, it used to work on a Vagrant
-  < 1.1 version and I'm planning to fix that as soon as I have a chance.
 * `vagrant suspend` does not stop the notification server
 
 
