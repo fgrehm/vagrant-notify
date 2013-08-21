@@ -27,6 +27,24 @@ command.
 If by any chance your IP changes, you can run `vagrant provision` in order to
 update the guest script with the new IP.
 
+### Linux
+
+Since Linux distributions have `notify-send` pre-installed, everything should work out of the box.
+
+### OS X
+
+You will need to create a `notify-send` script, available on `$PATH`. The script can forward the message to either 
+[Growl](http://growl.info/) with [GrowlNotify](http://growl.info/downloads) (version 1.2.2 is free but unreliable)
+or to the [Notification Center](http://support.apple.com/kb/HT5362) available on OS X 10.8+
+using f.ex. [terminal-notifier](https://github.com/alloy/terminal-notifier).
+
+A (too) primitive script integrating with Growl:
+
+```bash
+#!/bin/bash
+growlnotify -t "Vagrant VM" -m "$*"
+```
+
 ## Known issues
 
 * `vagrant suspend` does not stop the notification server
