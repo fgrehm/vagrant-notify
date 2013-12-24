@@ -11,7 +11,6 @@ module Vagrant
         hook.after VagrantPlugins::ProviderVirtualBox::Action::Boot, Vagrant::Notify::Action.action_start_server
 
         if defined?(Vagrant::LXC)
-          # TODO: Require just the boot action file once its "require dependencies" are sorted out
           require 'vagrant-lxc/action'
           hook.after Vagrant::LXC::Action::Boot, Vagrant::Notify::Action.action_start_server
         end
@@ -36,7 +35,6 @@ module Vagrant
         hook.before VagrantPlugins::ProviderVirtualBox::Action::Destroy, Vagrant::Notify::Action.action_stop_server
 
         if defined?(Vagrant::LXC)
-          # TODO: Require just the destroy action file once its "require dependencies" are sorted out
           require 'vagrant-lxc/action'
           hook.before Vagrant::LXC::Action::Destroy, Vagrant::Notify::Action.action_stop_server
         end
