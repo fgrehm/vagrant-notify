@@ -40,6 +40,7 @@ unless ARGV.empty?
   cmd << ARGV.map{|a| "'#{a}'"}.join(' ')
 end
 
-TCPSocket.open "<%= host_ip %>", <%= host_port %> do |s|
+client_ip = ENV['SSH_CLIENT'].split(' ')[0]
+TCPSocket.open ENV['SSH_CLIENT'], <%= host_port %> do |s|
   s.send cmd, 0
 end

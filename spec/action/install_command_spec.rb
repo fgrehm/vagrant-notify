@@ -14,20 +14,19 @@ describe Vagrant::Notify::Action::InstallCommand do
   let(:tmp_cmd_path)     { tmp_path.join('vagrant-notify-send') }
   let(:guest_tmp_path)   { '/tmp/notify-send' }
   let(:guest_path)       { '/usr/bin/notify-send' }
-  let(:stubbed_template) { ERB.new('<%= host_ip %> <%= host_port %>') }
+  let(:stubbed_template) { ERB.new('<%= host_port %>') }
 
   subject { described_class.new(app, env) }
 
   before do
     ERB.stub(:new => stubbed_template)
-    subject.stub(local_ip: host_ip)
     subject.call(env)
   end
 
   after { FileUtils.rm_rf tmp_path.to_s }
 
-  it 'compiles command script passing host ip and server port' do
-    tmp_cmd_path.read.should == "#{host_ip} #{host_port}"
+  it 'compiles command script passing server port' do
+    tmp_cmd_path.read.should == "#{host_port}"
   end
 
   it 'uploads compiled command script over to guest machine' do

@@ -1,5 +1,11 @@
 ## [0.4.0](https://github.com/fgrehm/vagrant-notify/compare/v0.3.0...master) (unreleased)
 
+IMPROVEMENTS
+
+  - Make use of `$SSH_CLIENT` when identifying host's IP to connect
+
+BUG FIXES
+
   - Fix "rm: cannot remove ‘/usr/bin/notify-send’: No such file or directory" [[GH-11]]
 
 ## Previous
