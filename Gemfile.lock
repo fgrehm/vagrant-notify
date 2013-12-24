@@ -1,25 +1,25 @@
 GIT
   remote: git://github.com/fgrehm/vagrant-lxc.git
-  revision: d2e354839f404ef426bdee38e50c9b3256e1e3c2
+  revision: c19bc91e708f7a69b62e35f465b5246bf5706cc3
   specs:
-    vagrant-lxc (0.4.1.dev)
+    vagrant-lxc (0.7.1.dev)
 
 GIT
   remote: git://github.com/mitchellh/vagrant.git
-  revision: e98e8bf9d768cc9be244fb61883a907253b11f08
+  revision: e3734a7a46c39cd73e79538980dd98aeaeca9656
   specs:
-    vagrant (1.2.7.dev)
+    vagrant (1.4.2.dev)
       childprocess (~> 0.3.7)
       erubis (~> 2.7.0)
       i18n (~> 0.6.0)
       log4r (~> 1.1.9)
       net-scp (~> 1.1.0)
-      net-ssh (~> 2.6.6)
+      net-ssh (>= 2.6.6, < 2.8.0)
 
 PATH
   remote: .
   specs:
-    vagrant-notify (0.3.0)
+    vagrant-notify (0.4.0.dev)
 
 GEM
   remote: https://rubygems.org/
@@ -29,7 +29,7 @@ GEM
     coderay (1.0.9)
     diff-lcs (1.2.4)
     erubis (2.7.0)
-    ffi (1.9.0)
+    ffi (1.9.3)
     formatador (0.2.4)
     guard (1.8.1)
       formatador (>= 0.2.4)
@@ -40,7 +40,7 @@ GEM
     guard-rspec (3.0.2)
       guard (>= 1.8)
       rspec (~> 2.13)
-    i18n (0.6.4)
+    i18n (0.6.9)
     listen (1.2.2)
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9)
@@ -50,7 +50,7 @@ GEM
     method_source (0.8.2)
     net-scp (1.1.2)
       net-ssh (>= 2.6.5)
-    net-ssh (2.6.8)
+    net-ssh (2.7.0)
     pry (0.9.12.2)
       coderay (~> 1.0.5)
       method_source (~> 0.8)
