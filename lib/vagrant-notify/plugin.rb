@@ -4,9 +4,14 @@ module Vagrant
       name 'vagrant notify'
       description 'Forwards notify-send from guest to host machine'
 
+      action_hook 'notify-provisioning-status', :provisioner_run do |hook|
+        require_relative './action'
+        hook.before :run_provisioner, Vagrant::Notify::Action::NotifyProvisioningStatus
+      end
+
       # TODO: This should be generic, we don't want to hard code every single
       #       possible provider action class that Vagrant might have
-      action_hook 'start-server-after-boot' do |hook|
+      start_server_hook = lambda do |hook|
         require_relative './action'
         hook.after VagrantPlugins::ProviderVirtualBox::Action::Boot, Vagrant::Notify::Action.action_start_server
 
@@ -16,6 +21,9 @@ module Vagrant
         end
       end
 
+      action_hook 'start-server-after-boot-on-machine-up',     :machine_action_up, &start_server_hook
+      action_hook 'start-server-after-boot-on-machine-reload', :machine_action_reload, &start_server_hook
+
       share_folder_hook = lambda do |hook|
         require_relative './action'
         hook.after Vagrant::Action::Builtin::Provision, Vagrant::Notify::Action::SetSharedFolder
@@ -23,7 +31,7 @@ module Vagrant
       action_hook 'set-shared-folder-and-start-notify-server-on-machine-up',     :machine_action_up, &share_folder_hook
       action_hook 'set-shared-folder-and-start-notify-server-on-machine-reload', :machine_action_reload, &share_folder_hook
 
-      action_hook 'stop-server-after-halt' do |hook|
+      action_hook 'stop-server-after-halt', :machine_action_halt do |hook|
         require_relative './action'
         hook.before Vagrant::Action::Builtin::GracefulHalt, Vagrant::Notify::Action.action_stop_server
       end

@@ -2,6 +2,7 @@
 
 IMPROVEMENTS
 
+  - Notify provisioning status on Vagrant 1.4+ [[GH-5]]
   - Make use of `$SSH_CLIENT` when identifying host's IP to connect
 
 BUG FIXES
@@ -15,4 +16,5 @@ can be seen by checking the tagged releases and reading git commit
 messages.
 
 
+[GH-5]:https://github.com/fgrehm/vagrant-notify/issues/5
 [GH-11]:https://github.com/fgrehm/vagrant-notify/issues/11

@@ -1,5 +1,6 @@
 require_relative 'action/check_provider'
 require_relative 'action/install_command'
+require_relative 'action/notify_provisioning_status'
 require_relative 'action/prepare_data'
 require_relative 'action/server_is_running'
 require_relative 'action/set_shared_folder'
