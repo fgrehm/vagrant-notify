@@ -1,7 +1,9 @@
-# Vagrant::Notify
+# vagrant-notify
 
 [![Build Status](https://travis-ci.org/fgrehm/vagrant-notify.png)](https://travis-ci.org/fgrehm/vagrant-notify)
 [![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/fgrehm/vagrant-notify)
+[![Gem Version](https://badge.fury.io/rb/vagrant-notify.png)](http://badge.fury.io/rb/vagrant-notify)
+[![Gittip](http://img.shields.io/gittip/fgrehm.svg)](https://www.gittip.com/fgrehm/)
 
 A Vagrant plugin that forwards `notify-send` from guest to host machine, tested
 using Ubuntu as guest and host machine.
@@ -13,7 +15,6 @@ Make sure you have Vagrant >= 1.1 around and run:
 ```terminal
 $ vagrant plugin install vagrant-notify
 ```
-
 
 
 ## Usage
@@ -33,7 +34,7 @@ Since Linux distributions have `notify-send` pre-installed, everything should wo
 
 ### OS X
 
-You will need to create a `notify-send` script, available on `$PATH`. The script can forward the message to either 
+You will need to create a `notify-send` script, available on `$PATH`. The script can forward the message to either
 [Growl](http://growl.info/) with [GrowlNotify](http://growl.info/downloads) (version 1.2.2 is free but unreliable)
 or to the [Notification Center](http://support.apple.com/kb/HT5362) available on OS X 10.8+
 using f.ex. [terminal-notifier](https://github.com/alloy/terminal-notifier).
@@ -57,7 +58,3 @@ growlnotify -t "Vagrant VM" -m "$*"
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
-
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/fgrehm/vagrant-notify/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-
