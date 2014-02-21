@@ -7,8 +7,10 @@ module Vagrant
         end
 
         def call(env)
-          env[:machine].communicate.sudo('rm /usr/bin/notify-send; exit 0')
-          env[:machine].communicate.sudo('mv /usr/bin/{notify-send.bkp,notify-send}; exit 0')
+          if env[:machine].state.id == :running
+            env[:machine].communicate.sudo('rm /usr/bin/notify-send; exit 0')
+            env[:machine].communicate.sudo('mv /usr/bin/{notify-send.bkp,notify-send}; exit 0')
+          end
 
           @app.call env
 
