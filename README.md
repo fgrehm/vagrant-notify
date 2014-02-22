@@ -5,9 +5,7 @@
 [![Gittip](http://img.shields.io/gittip/fgrehm.svg)](https://www.gittip.com/fgrehm/)
 
 A Vagrant plugin that forwards `notify-send` from guest to host machine and
-notifies provisioning status.
-
-![Demo](http://i.imgur.com/tzOLvGY.gif)
+notifies provisioning status. [See it in action](#demo)
 
 
 ## Installation
@@ -57,6 +55,11 @@ A (too) primitive script integrating with Growl:
 #!/bin/bash
 growlnotify -t "Vagrant VM" -m "$*"
 ```
+
+## Demo
+
+![Demo](http://i.imgur.com/tzOLvGY.gif)
+
 
 ## Known issues
 
