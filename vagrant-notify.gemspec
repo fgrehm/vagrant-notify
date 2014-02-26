@@ -8,7 +8,7 @@ Gem::Specification.new do |gem|
   gem.version       = Vagrant::Notify::VERSION
   gem.authors       = ["Fabio Rehm"]
   gem.email         = ["fgrehm@gmail.com"]
-  gem.description   = 'A Vagrant plugin that redirects system notifications from guest to host machine.'
+  gem.description   = 'A Vagrant plugin that forwards `notify-send` from guest to host machine and notifies provisioning status'
   gem.summary       = gem.description
   gem.homepage      = "https://github.com/fgrehm/vagrant-notify"
 
