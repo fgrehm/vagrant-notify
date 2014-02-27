@@ -1,8 +1,8 @@
 GIT
   remote: git://github.com/fgrehm/vagrant-lxc.git
-  revision: c19bc91e708f7a69b62e35f465b5246bf5706cc3
+  revision: 4a84d95ff26bf2d887b127765a9ae404899734f9
   specs:
-    vagrant-lxc (0.7.1.dev)
+    vagrant-lxc (0.8.1.dev)
 
 GIT
   remote: git://github.com/mitchellh/vagrant.git
