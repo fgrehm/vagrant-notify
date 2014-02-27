@@ -30,8 +30,8 @@ command.
 ### Provisioning notification
 
 Apart from redirecting `notify-send` from the guest VM to the host, whenever
-a Vagrant provisioner completes running you'll also receive a notification
-like:
+a Vagrant 1.4+ provisioner starts or completes running you'll also receive
+notifications like:
 
 ![provisioning](http://i.imgur.com/DgKjDgr.png)
 
