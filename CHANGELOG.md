@@ -1,4 +1,7 @@
-## [0.4.0](https://github.com/fgrehm/vagrant-notify/compare/v0.3.0...master) (Feb 26, 2014)
+## [0.4.1](https://github.com/fgrehm/vagrant-notify/compare/v0.3.0...master) (unreleased)
+
+
+## [0.4.0](https://github.com/fgrehm/vagrant-notify/compare/v0.3.0...v0.4.0) (Feb 26, 2014)
 
 IMPROVEMENTS
 
