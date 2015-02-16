@@ -13,7 +13,7 @@ module Vagrant
       #       possible provider action class that Vagrant might have
       start_server_hook = lambda do |hook|
         require_relative './action'
-        hook.after VagrantPlugins::ProviderVirtualBox::Action::Boot, Vagrant::Notify::Action.action_start_server
+        hook.after VagrantPlugins::ProviderVirtualBox::Action::WaitForCommunicator, Vagrant::Notify::Action.action_start_server
 
         if defined?(Vagrant::LXC)
           require 'vagrant-lxc/action'
