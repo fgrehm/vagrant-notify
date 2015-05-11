@@ -2,11 +2,13 @@
 
 [![Build Status](https://travis-ci.org/fgrehm/vagrant-notify.png)](https://travis-ci.org/fgrehm/vagrant-notify)
 [![Gem Version](https://badge.fury.io/rb/vagrant-notify.png)](http://badge.fury.io/rb/vagrant-notify)
-[![Gittip](http://img.shields.io/gittip/fgrehm.svg)](https://www.gittip.com/fgrehm/)
 
 A Vagrant plugin that forwards `notify-send` from guest to host machine and
 notifies provisioning status. [See it in action](#demo)
 
+## Help Needed!
+
+This project is looking for maintainers, please see [GH-24](https://github.com/fgrehm/vagrant-notify/issues/24) for more.
 
 ## Installation
 
