@@ -12,7 +12,7 @@ require 'fileutils'
 
 options = {}
 OptionParser.new do |opts|
-  opts.banner = "Usage: example.rb [options]"
+  opts.banner = "Usage: notify-send.rb [options]"
 
   opts.on('-u', '--urgency LEVEL')           { |v| options[:u] = v }
   opts.on('-t', '--expire-time TIME')        { |v| options[:t] = v }
@@ -40,7 +40,7 @@ unless ARGV.empty?
   cmd << ARGV.map{|a| "'#{a}'"}.join(' ')
 end
 
-client_ip = ENV['SSH_CLIENT'].split(' ')[0]
-TCPSocket.open ENV['SSH_CLIENT'], <%= host_port %> do |s|
+client_ip = `netstat -rn | grep "^0.0.0.0 " | cut -d " " -f10`
+TCPSocket.open client_ip, <%= host_port %> do |s|
   s.send cmd, 0
 end
