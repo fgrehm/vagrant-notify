@@ -52,6 +52,23 @@ module Vagrant
             end
           end
         end
+
+        def action_status_server
+          Vagrant::Action::Builder.new.tap do |b|
+            b.use Call, CheckProvider do |env, b2|
+              next if !env[:result]
+
+              b2.use PrepareData
+              b2.use Call, ServerIsRunning do |env2, b3|
+                if env2[:result]
+                  env[:machine].ui.success("vagrant-notify-server pid: #{env2[:notify_data][:pid]}")
+                else
+                  env[:machine].ui.error("No vagrant-notify server detected.")
+                end
+              end
+            end
+          end
+        end
       end
     end
   end

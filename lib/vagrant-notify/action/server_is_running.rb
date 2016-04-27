@@ -1,3 +1,5 @@
+require_relative 'windows/process_info'
+
 module Vagrant
   module Notify
     module Action
@@ -18,9 +20,13 @@ module Vagrant
         private
 
         def valid_process?(pid)
-          Process.getpgid(pid.to_i) if pid
-        rescue Errno::ESRCH
-          false
+          if RUBY_PLATFORM =~ /mswin|msys|mingw|cygwin|bccwin|wince|emc/
+            Vagrant::Notify::Action::Windows::ProcessInfo.queryProcess(pid) if pid
+          else
+            Process.getpgid(pid.to_i) if pid
+          end
+          rescue Errno::ESRCH
+            false
         end
       end
     end

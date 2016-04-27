@@ -1,0 +1,42 @@
+#!/usr/bin/ruby
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# This is the wrapper around Growl For Windows growlnotify.exe that connects to the host machine when sending notifications.
+
+require 'rubygems'
+require 'socket'
+require 'optparse'
+require 'fileutils'
+
+options = {}
+OptionParser.new do |opts|
+  opts.banner = "Usage: notify-send.rb [options]"
+
+  opts.on('-u', '--urgency LEVEL')           { |v| options[:u] = v } # TO DO: Set to /p:priority
+  opts.on('-t', '--expire-time TIME')        { |v| options[:t] = v } # Option gets removed 
+  opts.on('-a', '--app-name APP_NAME')       { |v| options[:a] = v } # TO DO: Set to /a:application
+  opts.on('-i', '--icon ICON[,ICON...]')     { |v| options[:i] = v } # TO DO: Set to /i:icon (url only) 
+  opts.on('-c', '--category TYPE[,TYPE...]') { |v| options[:c] = v } # Option gets removed 
+  opts.on('-h', '--hint TYPE:NAME:VALUE')    { |v| options[:h] = v } # Option gets removed
+  opts.on('-v', '--version')                 { |v| options[:v] = v } # Option gets removed
+
+end.parse!
+
+# TODO: Need to escape values
+send_cmd = ''
+if ARGV.length == 0
+  puts "No summary specified (VM)"
+  exit 1
+elsif ARGV.length == 1
+  send_cmd = "'#{ARGV[0].gsub(/('|")/) {|s| ''}}'"
+elsif ARGV.length == 2
+  title = "'#{ARGV[0].gsub(/('|")/) {|s| ''}}'"
+  message = "'#{ARGV[1].gsub(/('|")/) {|s| ''}}'"
+  send_cmd = "#{title} #{message}"
+end
+
+client_ip = `netstat -rn | grep "^0.0.0.0 " | cut -d " " -f10`
+TCPSocket.open client_ip, <%= host_port %> do |s|
+  s.send send_cmd, 0
+end

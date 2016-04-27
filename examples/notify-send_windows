@@ -1,0 +1,21 @@
+#!/usr/bin/env ruby
+
+# Example MS-Windows notify-send wrapper script.
+# MS-Windows Caveats:
+#  - NOTIFY_SEND environemnt variable must be set to point to the wrapper script.
+#  - Wrapper script must be a ruby file.
+
+
+if ARGV.length == 0
+  puts "No summary specified"
+elsif ARGV.length == 1
+  message = "'#{ARGV[0]}'"
+  system("growlnotify.exe \"#{message}\"")
+elsif ARGV.length == 2
+  title = "/t:'#{ARGV[0]}'"
+  message = "'#{ARGV[1]}'"
+  system("growlnotify.exe \"#{title}\" \"#{message}\"")
+else
+  message = ARGV.map{|a| "'#{a}'"}.join(' ')
+  system("growlnotify.exe \"#{message}\"")
+end

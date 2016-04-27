@@ -8,7 +8,6 @@ if File.exists?(File.join(File.expand_path('../../', __FILE__), '.git'))
 end
 
 require 'vagrant-notify/plugin'
-require 'vagrant-notify/server'
 require "vagrant-notify/version"
 
 module Vagrant

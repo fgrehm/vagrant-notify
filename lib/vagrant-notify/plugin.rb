@@ -13,7 +13,7 @@ module Vagrant
       #       possible provider action class that Vagrant might have
       start_server_hook = lambda do |hook|
         require_relative './action'
-        hook.after VagrantPlugins::ProviderVirtualBox::Action::Boot, Vagrant::Notify::Action.action_start_server
+        hook.after VagrantPlugins::ProviderVirtualBox::Action::WaitForCommunicator, Vagrant::Notify::Action.action_start_server
 
         if defined?(Vagrant::LXC)
           require 'vagrant-lxc/action'
@@ -23,6 +23,7 @@ module Vagrant
 
       action_hook 'start-server-after-boot-on-machine-up',     :machine_action_up, &start_server_hook
       action_hook 'start-server-after-boot-on-machine-reload', :machine_action_reload, &start_server_hook
+      action_hook 'start-server-after-resume-on-machine',      :machine_action_resume, &start_server_hook
 
       share_folder_hook = lambda do |hook|
         require_relative './action'
@@ -36,6 +37,7 @@ module Vagrant
         hook.before Vagrant::Action::Builtin::GracefulHalt, Vagrant::Notify::Action.action_stop_server
       end
 
+
       # TODO: This should be generic, we don't want to hard code every single
       #       possible provider action class that Vagrant might have
       action_hook 'stop-server-before-destroy', :machine_action_destroy do |hook|
@@ -46,6 +48,16 @@ module Vagrant
           require 'vagrant-lxc/action'
           hook.before Vagrant::LXC::Action::Destroy, Vagrant::Notify::Action.action_stop_server
         end
+      end
+
+      action_hook 'stop-server-after-suspend', :machine_action_suspend do |hook|
+        require_relative './action'
+        hook.before VagrantPlugins::ProviderVirtualBox::Action::Suspend, Vagrant::Notify::Action.action_stop_server
+      end
+
+      command(:notify) do
+        require_relative 'command'
+        Vagrant::Notify::Command
       end
     end
   end
