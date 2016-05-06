@@ -9,7 +9,7 @@ module Vagrant
         def call(env)
           case RUBY_PLATFORM
           when /mswin|msys|mingw|cygwin|bccwin|wince|emc/
-            path = compile_command(env, 'notify-send-windows.erb')
+            path = compile_command(env, 'notify-send.erb')
           when /darwin|mac os/
             path = compile_command(env, 'notify-send-osx.erb')
           else
