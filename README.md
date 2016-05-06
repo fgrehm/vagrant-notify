@@ -58,14 +58,21 @@ A (too) primitive script integrating with Growl:
 growlnotify -t "Vagrant VM" -m "$*"
 ```
 
+### Windows (beta)
+
+You can use the freeware application [notify-send for Windows](http://vaskovsky.net/notify-send/), make sure the notify-send binary is available on `Path`.
+
+
 ## Demo
 
 ![Demo](http://i.imgur.com/tzOLvGY.gif)
+![Demo OS X](http://i.imgur.com/216NIlf.gif)
+![Demo Windows](http://i.imgur.com/cJYqX4y.gif)
 
 
 ## Known issues
 
-* `vagrant suspend` does not stop the notification server
+* `vagrant destroy` on a running VM will not stop the notification server
 
 
 ## Contributing
