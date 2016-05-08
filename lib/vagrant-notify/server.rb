@@ -10,24 +10,23 @@ module Vagrant
         #machine_name = env[:machine].name
         #provider     = env[:machine].provider_name
 
- 
-        $0 = "vagrant-notify-server (#{port})"
-        tcp_server = TCPServer.open("127.0.0.1", port)
-        server = self.new(id, machine_name, provider)
+        if __FILE__ == $0
+          tcp_server = TCPServer.open("127.0.0.1", port)
+          server = self.new(id, machine_name, provider)
 
-        # Have to wrap this in a begin/rescue block so we can be certain the server is running at all times.
-        begin 
-          loop {
+          # Have to wrap this in a begin/rescue block so we can be certain the server is running at all times.
+          begin
+            loop {
                 Thread.start(tcp_server.accept) { |client|
                   Thread.handle_interrupt(Interrupt => :never) {  
-                  server.receive_data(client)
+                    server.receive_data(client)
                   }
+                }
               }
-            }
-        rescue Interrupt
-          retry
+          rescue Interrupt
+            retry
+          end
         end
-          
       end
 
       def initialize(id, machine_name = :default, provider = :virtualbox)
