@@ -36,7 +36,7 @@ end.join(' ')
 
 # TODO: Need to escape values
 unless ARGV.empty?
-  cmd << ARGV.map{|a| "'#{a}'"}.join(' ')
+  cmd << ARGV.map{|a| " '#{a}'"}.join(' ')
 end
 
 client_ip = `ip route|grep default|awk '{print $3}'`
