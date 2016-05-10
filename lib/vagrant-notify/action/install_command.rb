@@ -7,15 +7,7 @@ module Vagrant
         end
 
         def call(env)
-          case RUBY_PLATFORM
-          when /mswin|msys|mingw|cygwin|bccwin|wince|emc/
-            path = compile_command(env, 'notify-send.erb')
-          when /darwin|mac os/
-            path = compile_command(env, 'notify-send-osx.erb')
-          else
-            path = compile_command(env, 'notify-send.erb')
-          end
-
+          path = compile_command(env, 'notify-send.erb')
           install_command_on_guest(env, path)
 
           @app.call env
