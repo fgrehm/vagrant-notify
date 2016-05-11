@@ -6,6 +6,7 @@ IMPROVEMENTS
 
   - Notification server runs as a daemon (fork() has been removed so it's compatible with Windows). [[GH-14]]
   - Windows support (beta) [[GH-14]]
+  - Notification server is available from localhost.
   - Notification server information is displayed each time vagrant is started and halted.
   - New plugin command. Ability to view notification server status, and ability for manual restart. [CLI](https://gist.github.com/alpha01/9b81caca694a2735e658f978c41600b5)
   - New notify-send example scripts for OS X and Windows
