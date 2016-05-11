@@ -6,9 +6,6 @@
 A Vagrant plugin that forwards `notify-send` from guest to host machine and
 notifies provisioning status. [See it in action](#demo)
 
-## Help Needed!
-
-This project is looking for maintainers, please see [GH-24](https://github.com/fgrehm/vagrant-notify/issues/24) for more.
 
 ## Installation
 
@@ -58,9 +55,13 @@ A (too) primitive script integrating with Growl:
 growlnotify -t "Vagrant VM" -m "$*"
 ```
 
+See example [scripts](https://github.com/alpha01/vagrant-notify/tree/devel/examples).
+
 ### Windows (beta)
 
 You can use the freeware application [notify-send for Windows](http://vaskovsky.net/notify-send/), make sure the notify-send binary is available on `Path`.
+
+See example [scripts](https://github.com/alpha01/vagrant-notify/tree/devel/examples).
 
 
 ## Demo
@@ -72,7 +73,8 @@ You can use the freeware application [notify-send for Windows](http://vaskovsky.
 
 ## Known issues
 
-* `vagrant destroy` on a running VM will not stop the notification server
+* `vagrant destroy` on a running VM will not stop the notification server.
+* On rare occasions the notification server may stop receiving notifications if the host is suspended/hibernates. The notification server may need to be manually restarted if that's the case. `vagrant notify --restart`
 
 
 ## Contributing

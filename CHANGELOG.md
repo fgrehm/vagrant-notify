@@ -1,4 +1,23 @@
-## [0.4.1](https://github.com/fgrehm/vagrant-notify/compare/v0.3.0...master) (unreleased)
+
+
+## [0.5.0](https://github.com/fgrehm/vagrant-notify/compare/v0.4.0...v0.5.0) (May 11, 2016)
+
+IMPROVEMENTS
+
+  - Notification server runs as a daemon (fork() has been removed so it's compatible with Windows). [[GH-14]]
+  - Windows support (beta) [[GH-14]]
+  - Notification server information is displayed each time vagrant is started and halted.
+  - New plugin command. Ability to view notification server status, and ability for manual restart. [CLI](https://gist.github.com/alpha01/9b81caca694a2735e658f978c41600b5)
+  - New notify-send example scripts for OS X and Windows
+
+BUG FIXES
+
+  - `vagrant suspend/resume` stops/starts notification server respectively. [[GH-18]]
+  - Plugin causes VM boot to fail. [[GH-22]]
+
+[GH-14]:https://github.com/fgrehm/vagrant-notify/issues/14
+[GH-18]:https://github.com/fgrehm/vagrant-notify/issues/18
+[GH-22]:https://github.com/fgrehm/vagrant-notify/pull/22
 
 
 ## [0.4.0](https://github.com/fgrehm/vagrant-notify/compare/v0.3.0...v0.4.0) (Feb 26, 2014)
