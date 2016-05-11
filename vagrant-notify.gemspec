@@ -6,8 +6,8 @@ require 'vagrant-notify/version'
 Gem::Specification.new do |gem|
   gem.name          = "vagrant-notify"
   gem.version       = Vagrant::Notify::VERSION
-  gem.authors       = ["Fabio Rehm"]
-  gem.email         = ["fgrehm@gmail.com"]
+  gem.authors       = ["Fabio Rehm", "Tony Baltazar"]
+  gem.email         = ["fgrehm@gmail.com", "root@rubyninja.org"]
   gem.description   = 'A Vagrant plugin that forwards `notify-send` from guest to host machine and notifies provisioning status'
   gem.summary       = gem.description
   gem.homepage      = "https://github.com/fgrehm/vagrant-notify"
