@@ -2,12 +2,12 @@
 
 ## OS X
 
-* [terminal-notifier](https://github.com/alloy/terminal-notifier) [wrapper script](https://github.com/alpha01/vagrant-notify/blob/devel/examples/osx/notify-send_terminal-notifier) 
+* [terminal-notifier](https://github.com/alloy/terminal-notifier) [wrapper script](https://github.com/fgrehm/vagrant-notify/blob/master/examples/osx/notify-send_terminal-notifier) 
 
 
 ## Windows
 
-* [Growl for Windows](http://www.growlforwindows.com/gfw/default.aspx) [wrapper script](https://github.com/alpha01/vagrant-notify/blob/devel/examples/windows/notify-send_growl_for_windows)
+* [Growl for Windows](http://www.growlforwindows.com/gfw/default.aspx) [wrapper script](https://github.com/fgrehm/vagrant-notify/blob/master/examples/windows/notify-send_growl_for_windows)
 
 **IMPORTANT:** `notify-send` wrapper script has to be binary executable. Also as with `notify-send`, `growlnotify.exe` needs to be is in your `path`. 
 
