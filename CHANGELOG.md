@@ -1,6 +1,6 @@
 
 
-## [0.5.0](https://github.com/fgrehm/vagrant-notify/compare/v0.4.0...v0.5.0) (May 11, 2016)
+## [0.5.0](https://github.com/fgrehm/vagrant-notify/compare/v0.4.0...v0.5.0) (June 21, 2016)
 
 IMPROVEMENTS
 
