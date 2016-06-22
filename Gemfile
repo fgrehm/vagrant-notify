@@ -7,6 +7,7 @@ group :development do
   gem 'rb-inotify'
   gem 'guard'
   gem 'guard-rspec'
+  gem 'ocra'
 end
 
 group :development, :test do

@@ -1,21 +1,31 @@
+require 'socket'
+
 module Vagrant
   module Notify
     class Server
       HTTP_RESPONSE = "Hi! You just reached the vagrant notification server"
 
-      def self.run(env, port)
-        id           = env[:machine].id
-        machine_name = env[:machine].name
-        provider     = env[:machine].provider_name
-        fork do
-          $0 = "vagrant-notify-server (#{port})"
-          tcp_server = TCPServer.open(port)
+      def self.run(id, port, machine_name='default', provider='virtualbox')
+        #id           = env[:machine].id
+        #machine_name = env[:machine].name
+        #provider     = env[:machine].provider_name
+
+        if __FILE__ == $0
+          tcp_server = TCPServer.open("127.0.0.1", port)
           server = self.new(id, machine_name, provider)
-          loop {
-            Thread.start(tcp_server.accept) { |client|
-              server.receive_data(client)
-            }
-          }
+
+          # Have to wrap this in a begin/rescue block so we can be certain the server is running at all times.
+          begin
+            loop {
+                Thread.start(tcp_server.accept) { |client|
+                  Thread.handle_interrupt(Interrupt => :never) {  
+                    server.receive_data(client)
+                  }
+                }
+              }
+          rescue Interrupt
+            retry
+          end
         end
       end
 
@@ -68,3 +78,10 @@ module Vagrant
     end
   end
 end
+
+
+# Ghetto
+id = ARGV[0]
+port = ARGV[1]
+
+Vagrant::Notify::Server.run(id,port)
