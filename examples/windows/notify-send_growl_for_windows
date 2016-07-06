@@ -25,12 +25,12 @@ if ARGV.length == 0
   puts "No summary specified"
 elsif ARGV.length == 1
   message = "'#{ARGV[0]}'"
-  system("growlnotify.exe \"#{message}\"")
 elsif ARGV.length == 2
   title = "/t:'#{ARGV[0]}'"
   message = "'#{ARGV[1]}'"
-  system("growlnotify.exe \"#{title}\" \"#{message}\"")
 else
-  message = ARGV.map{|a| "'#{a}'"}.join(' ')
-  system("growlnotify.exe \"#{message}\"")
+  puts "Invalid number of options."
+  exit 1
 end
+
+system("growlnotify.exe \"#{message}\"")

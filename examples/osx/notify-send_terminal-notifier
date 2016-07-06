@@ -27,7 +27,8 @@ elsif ARGV.length == 1
 elsif ARGV.length == 2
   message = "-title '\\#{ARGV[0]}' -message '\\#{ARGV[1]}'"
 else
-  message = ARGV.map{|a| a =~ /-(title|message)/ ? a : "'\\#{a}'"}.join(' ')
+  puts "Invalid number of options."
+  exit 1
 end
 
 system("terminal-notifier -sound default #{message}")
