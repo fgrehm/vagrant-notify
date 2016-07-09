@@ -63,7 +63,11 @@ module Vagrant
                 if env2[:result]
                   env[:machine].ui.success("vagrant-notify-server pid: #{env2[:notify_data][:pid]}")
                 else
-                  env[:machine].ui.error("No vagrant-notify server detected.")
+                  if env[:machine].config.notify.enable == false
+                    env[:machine].ui.error("No vagrant-notify server detected. Disabled in Vagrantfile")
+                  else
+                    env[:machine].ui.error("No vagrant-notify server detected.")
+                  end
                 end
               end
             end

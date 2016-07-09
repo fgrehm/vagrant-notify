@@ -59,6 +59,17 @@ module Vagrant
         require_relative 'command'
         Vagrant::Notify::Command
       end
+
+      config(:notify) do
+        require_relative 'config'
+        Vagrant::Notify::Config
+      end
     end
   end
+ 
+  # Keep an eye on https://github.com/mitchellh/vagrant/wiki/Available-Vagrant-Plugins#wiki-providers
+  # for more.
+  CLOUD_PROVIDERS = %w( aws cloudstack digital_ocean hp joyent openstack rackspace
+                          softlayer proxmox managed azure brightbox cloudstack vcloud
+                          vsphere )
 end

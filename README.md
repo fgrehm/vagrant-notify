@@ -63,6 +63,16 @@ You can use the freeware application [notify-send for Windows](http://vaskovsky.
 
 See example [scripts](https://github.com/fgrehm/vagrant-notify/tree/master/examples).
 
+## Configuration
+
+Notifcation server is enabled by default on all VMs. You can individually disable the plugin by adding the following to your `Vagrantfile`
+
+```ruby
+config.notify.enable = false
+```
+
+_Please note that as of v0.5.1, the notification server will automatically be disabled for any of the following
+[cloud providers](lib/vagrant-notify/plugin.rb#L20-22)_
 
 ## Demo
 

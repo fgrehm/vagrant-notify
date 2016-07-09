@@ -5,9 +5,10 @@ Vagrant.require_plugin 'vagrant-notify'
 Vagrant.require_plugin 'vagrant-lxc'
 
 Vagrant.configure("2") do |config|
-  config.vm.box = "raring64"
+  config.vm.box = "ubuntu/trusty64"
   config.vm.synced_folder "../", "/vagrant", id: 'vagrant-root'
 
   config.vm.define :vm1
   config.vm.define :vm2
+  config.notify.enable = true
 end

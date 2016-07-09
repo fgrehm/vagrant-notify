@@ -17,6 +17,8 @@ module Vagrant
           port = next_available_port
           id = env[:machine].id
           dir = File.expand_path('../../', __FILE__)
+          
+          return if env[:machine].config.notify.enable == false
 
           if which('ruby')
             env[:notify_data][:pid]  = Process.spawn("ruby #{dir}/server.rb #{id} #{port}")
@@ -29,6 +31,7 @@ module Vagrant
           end
 
           @app.call env
+
         end
 
         def next_available_port

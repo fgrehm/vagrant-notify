@@ -7,6 +7,8 @@ module Vagrant
         end
 
         def call(env)
+          return if env[:machine].config.notify.enable == false
+          
           path = compile_command(env, 'notify-send.erb')
           install_command_on_guest(env, path)
 

@@ -6,9 +6,10 @@ require 'vagrant-notify/server'
 
 describe Vagrant::Notify::Action::StartServer do
   let(:app)        { lambda { |env| } }
+  let(:config)     { mock(notify: stub(enable: true)) }
   let(:ui)         { mock(success: true)}
   let(:id)         { '425e799c-1293-4939-bo39-263lcc7457e8' }
-  let(:machine)    { mock(state: stub(id: :stopped), ui: ui, id: id) }
+  let(:machine)    { mock(state: stub(id: :stopped), ui: ui, id: id, config: config) }
   let(:env)        { {notify_data: {}, machine: machine} }
   let(:pid)        { '42' }
   let(:port)       { '1234' }

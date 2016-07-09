@@ -4,9 +4,10 @@ require 'vagrant-notify/action/stop_server'
 
 describe Vagrant::Notify::Action::StopServer do
   let(:app)          { lambda { |env| } }
+  let(:config)       { mock(notify: stub(enable: true)) }
   let(:communicator) { mock(sudo: true) }
-  let(:ui)           { mock(success: true)}
-  let(:machine)      { mock(communicate: communicator, state: stub(id: :running), ui: ui) }
+  let(:ui)           { mock(success: true) }
+  let(:machine)      { mock(communicate: communicator, state: stub(id: :running), ui: ui, config: config) }
   let(:env)          { {notify_data: {pid: pid, port: 1234}, machine: machine} }
   let(:pid)          { '42' }
   let(:port)         { described_class::PORT }

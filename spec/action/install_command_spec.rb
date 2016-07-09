@@ -5,9 +5,10 @@ require 'vagrant-notify/action/install_command'
 
 describe Vagrant::Notify::Action::InstallCommand do
   let(:app)              { lambda { |env| } }
+  let(:config)           { mock(notify: stub(enable: true)) }
   let(:env)              { {notify_data: {port: host_port}, machine: machine, tmp_path: tmp_path} }
   let(:host_port)        { 12345 }
-  let(:machine)          { mock(communicate: communicator) }
+  let(:machine)          { mock(communicate: communicator, config: config) }
   let(:communicator)     { mock(upload: true, sudo: true) }
   let(:host_ip)          { '192.168.1.2' }
   let(:tmp_path)         { Pathname.new(Dir.mktmpdir) }
