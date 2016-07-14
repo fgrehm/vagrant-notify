@@ -72,7 +72,7 @@ config.notify.enable = false
 ```
 
 _Please note that as of v0.5.1, the notification server will automatically be disabled for any of the following
-[cloud providers](lib/vagrant-notify/plugin.rb#L20-22)_
+[cloud providers](lib/vagrant-notify/plugin.rb#L72-74)_
 
 ## Demo
 
