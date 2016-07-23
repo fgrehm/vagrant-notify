@@ -55,13 +55,13 @@ A (too) primitive script integrating with Growl:
 growlnotify -t "Vagrant VM" -m "$*"
 ```
 
-See example [scripts](https://github.com/fgrehm/vagrant-notify/tree/master/examples).
+Check out our OS X notify-send compatible [scripts](https://github.com/fgrehm/vagrant-notify/tree/master/examples).
 
 ### Windows (beta)
 
 You can use the freeware application [notify-send for Windows](http://vaskovsky.net/notify-send/), make sure the notify-send binary is available on `Path`.
 
-See example [scripts](https://github.com/fgrehm/vagrant-notify/tree/master/examples).
+Check out our Windows notify-send compatible [scripts](https://github.com/fgrehm/vagrant-notify/tree/master/examples).
 
 ## Configuration
 
