@@ -36,7 +36,7 @@ end.join(' ')
 
 # TODO: Need to escape values
 unless ARGV.empty?
-  cmd << ARGV.map{|a| " '#{a}'"}.join(' ')
+  cmd << ARGV.map{|a| " '#{a.gsub(/'/, "")}'"}.join(' ')
 end
 
 if RUBY_PLATFORM =~ /linux/
