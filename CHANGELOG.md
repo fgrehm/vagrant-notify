@@ -1,4 +1,14 @@
+## [0.5.1](https://github.com/fgrehm/vagrant-notify/compare/v0.5.0...v0.5.1) (July 23, 2016)
+IMPROVEMENTS
+  - New config option to disable plugin. [[GH-6]]
+  - Plugin will automatically be disabled for cloud providers. [[GH-15]]
+  - Solaris 11 and BSD guests are now supported.
+  - Windows snarl wrapper script.
+  - OS X growlnotify 1.2.2 wrapper script.
 
+BUG FIXES
+
+  - All single quotes that are part of the title or message get removed.
 
 ## [0.5.0](https://github.com/fgrehm/vagrant-notify/compare/v0.4.0...v0.5.0) (June 21, 2016)
 

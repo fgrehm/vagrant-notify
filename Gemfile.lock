@@ -19,7 +19,7 @@ GIT
 PATH
   remote: .
   specs:
-    vagrant-notify (0.5.0)
+    vagrant-notify (0.5.1)
 
 GEM
   remote: https://rubygems.org/
@@ -91,4 +91,4 @@ DEPENDENCIES
   vagrant-notify!
 
 BUNDLED WITH
-   1.10.6
+   1.12.2
