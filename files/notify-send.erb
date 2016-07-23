@@ -1,4 +1,4 @@
-#!/usr/bin/ruby
+#!/usr/bin/env ruby
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
@@ -39,7 +39,12 @@ unless ARGV.empty?
   cmd << ARGV.map{|a| " '#{a}'"}.join(' ')
 end
 
-client_ip = `ip route|grep default|awk '{print $3}'`
+if RUBY_PLATFORM =~ /linux/
+  client_ip = `ip route|awk '/default/ {print $3}'`
+elsif RUBY_PLATFORM =~ /solaris|freebsd|openbsd|netbsd/
+  client_ip = `netstat -r|awk '/default/ {print $2}'`
+end
+
 TCPSocket.open client_ip, <%= host_port %> do |s|
   s.send cmd, 0
 end
