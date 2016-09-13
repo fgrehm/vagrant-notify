@@ -2,8 +2,7 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-# This is the wrapper around Ubuntu's notify-send that connects to the host machine
-# when sending notifications
+# This is the wrapper around notify-send that connects to the host machine when sending notifications.
 
 require 'rubygems'
 require 'socket'
@@ -24,26 +23,36 @@ OptionParser.new do |opts|
 
 end.parse!
 
-if options[:i]
-  new_filename = options[:i].gsub('/', '-')
-  FileUtils.cp options[:i], "<%= shared_folder %>/#{new_filename}"
-  options[:i]  = new_filename
+# BSD guests do not support shared folders
+unless RUBY_PLATFORM =~ /freebsd|openbsd|netbsd/
+  if options[:i]
+    new_filename = options[:i].gsub('/', '-')
+    FileUtils.cp options[:i], "<%= shared_folder %>/#{new_filename}"
+    options[:i]  = new_filename
+  end
 end
 
 cmd = options.map do |key, value|
   "-#{key} '#{value}'"
 end.join(' ')
 
-# TODO: Need to escape values
+# All single quotes part of the message get removed.
+# TODO: Need to escape values.
 unless ARGV.empty?
   cmd << ARGV.map{|a| " '#{a.gsub(/'/, "")}'"}.join(' ')
 end
 
-if RUBY_PLATFORM =~ /linux/
-  client_ip = `ip route|awk '/default/ {print $3}'`
-elsif RUBY_PLATFORM =~ /solaris|freebsd|openbsd|netbsd/
-  client_ip = `netstat -r|awk '/default/ {print $2}'`
+# VirtualBox is the only provider that can communicate with 127.0.0.1, others will have to use default private networking
+if "<%= provider_name %>" == "virtualbox"
+  if RUBY_PLATFORM =~ /linux/
+    client_ip = `ip route|awk '/default/ {print $3}'`
+  elsif RUBY_PLATFORM =~ /solaris|freebsd|openbsd|netbsd/
+    client_ip = `netstat -r|awk '/default/ {print $2}'`
+  end
+else
+  client_ip = "<%= client_ip %>"
 end
+
 
 TCPSocket.open client_ip, <%= host_port %> do |s|
   s.send cmd, 0

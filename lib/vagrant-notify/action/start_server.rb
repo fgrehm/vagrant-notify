@@ -14,14 +14,16 @@ module Vagrant
         def call(env)
           @env = env
 
-          port = next_available_port
           id = env[:machine].id
+          provider_name = env[:machine].provider_name
           dir = File.expand_path('../../', __FILE__)
           
           return if env[:machine].config.notify.enable == false
 
+          port = next_available_port(env[:machine].config.notify.bind_ip)
+
           if which('ruby')
-            env[:notify_data][:pid]  = Process.spawn("ruby #{dir}/server.rb #{id} #{port}")
+            env[:notify_data][:pid]  = Process.spawn("ruby #{dir}/server.rb #{id} #{port} #{env[:machine].config.notify.bind_ip} #{provider_name}")
             env[:notify_data][:port] = port
 
             env[:machine].ui.success("Started vagrant-notify-server pid: #{env[:notify_data][:pid]}")
@@ -34,7 +36,7 @@ module Vagrant
 
         end
 
-        def next_available_port
+        def next_available_port(bind_ip)
           # Determine a list of usable ports for us to use
           usable_ports = Set.new(@env[:machine].config.vm.usable_port_range)
 
@@ -46,7 +48,7 @@ module Vagrant
           # Pass two, remove ports used by other processes
           with_forwarded_ports do |options|
             host_port = options[:host]
-            usable_ports.delete(options[:host]) if is_port_open?("127.0.0.1", host_port)
+            usable_ports.delete(options[:host]) if is_port_open?(bind_ip, host_port)
           end
 
           # If we have no usable ports then we can't use the plugin
@@ -56,7 +58,7 @@ module Vagrant
           # will use the first as in:
           #   https://github.com/mitchellh/vagrant/blob/master/lib/vagrant/action/builtin/handle_forwarded_port_collisions.rb#L84
           usable_ports.to_a.sort.reverse.find do |port|
-            return port unless is_port_open?("127.0.0.1", port)
+            return port unless is_port_open?(bind_ip, port)
           end
         end
 

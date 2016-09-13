@@ -5,13 +5,14 @@ module Vagrant
     class Server
       HTTP_RESPONSE = "Hi! You just reached the vagrant notification server"
 
-      def self.run(id, port, machine_name='default', provider='virtualbox')
+      def self.run(id, port, bind_ip, machine_name='default', provider='virtualbox')
         #id           = env[:machine].id
         #machine_name = env[:machine].name
         #provider     = env[:machine].provider_name
 
         if __FILE__ == $0
-          tcp_server = TCPServer.open("127.0.0.1", port)
+          
+          tcp_server = TCPServer.open(bind_ip, port)
           server = self.new(id, machine_name, provider)
 
           # Have to wrap this in a begin/rescue block so we can be certain the server is running at all times.
@@ -83,5 +84,6 @@ end
 # Ghetto
 id = ARGV[0]
 port = ARGV[1]
+bind_ip = ARGV[2]
 
-Vagrant::Notify::Server.run(id,port)
+Vagrant::Notify::Server.run(id, port, bind_ip)

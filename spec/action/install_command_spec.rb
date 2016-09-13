@@ -5,17 +5,19 @@ require 'vagrant-notify/action/install_command'
 
 describe Vagrant::Notify::Action::InstallCommand do
   let(:app)              { lambda { |env| } }
-  let(:config)           { mock(notify: stub(enable: true)) }
+  let(:config)           { mock(notify: stub(enable: true, bind_ip: "127.0.0.1")) }
   let(:env)              { {notify_data: {port: host_port}, machine: machine, tmp_path: tmp_path} }
   let(:host_port)        { 12345 }
-  let(:machine)          { mock(communicate: communicator, config: config) }
+  let(:machine)          { mock(communicate: communicator, config: config, provider_name: provider_name) }
   let(:communicator)     { mock(upload: true, sudo: true) }
   let(:host_ip)          { '192.168.1.2' }
+  let(:provider_name)    { 'virtualbox' }
   let(:tmp_path)         { Pathname.new(Dir.mktmpdir) }
   let(:tmp_cmd_path)     { tmp_path.join('vagrant-notify-send') }
   let(:guest_tmp_path)   { '/tmp/notify-send' }
   let(:guest_path)       { '/usr/bin/notify-send' }
   let(:stubbed_template) { ERB.new('<%= host_port %>') }
+  let(:stubbed_template2) { ERB.new('<%= provider_name %>') }
 
   subject { described_class.new(app, env) }
 
