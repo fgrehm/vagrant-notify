@@ -28,6 +28,9 @@ module Vagrant
       action_hook 'stop-server-after-halt', :machine_action_halt do |hook|
         require_relative './action'
         hook.before Vagrant::Action::Builtin::GracefulHalt, Vagrant::Notify::Action.action_stop_server
+
+        # Docker doesn't do a graceful halt
+        hook.before VagrantPlugins::DockerProvider::Action::Stop, Vagrant::Notify::Action.action_stop_server
       end
 
       action_hook 'stop-server-before-destroy', :machine_action_destroy do |hook|
