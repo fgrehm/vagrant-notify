@@ -11,4 +11,5 @@ Vagrant.configure("2") do |config|
   config.vm.define :vm1
   config.vm.define :vm2
   config.notify.enable = true
+#  config.notify.bind_ip = '127.0.0.1'
 end

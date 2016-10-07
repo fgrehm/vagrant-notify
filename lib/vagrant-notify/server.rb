@@ -11,8 +11,11 @@ module Vagrant
         #provider     = env[:machine].provider_name
 
         if __FILE__ == $0
-          
-          tcp_server = TCPServer.open(bind_ip, port)
+          begin
+            tcp_server = TCPServer.open(bind_ip, port)
+          rescue
+              exit 1
+          end
           server = self.new(id, machine_name, provider)
 
           # Have to wrap this in a begin/rescue block so we can be certain the server is running at all times.

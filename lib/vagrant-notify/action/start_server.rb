@@ -26,8 +26,8 @@ module Vagrant
             env[:notify_data][:pid]  = Process.spawn("ruby #{dir}/server.rb #{id} #{port} #{env[:machine].config.notify.bind_ip} #{provider_name}")
             env[:notify_data][:port] = port
 
-            env[:machine].ui.success("Started vagrant-notify-server pid: #{env[:notify_data][:pid]}")
             sleep 5
+            Process.detach(env[:notify_data][:pid].to_i)
           else
             env[:machine].ui.error("Unable to spawn TCPServer daemon, ruby not found in $PATH")
           end

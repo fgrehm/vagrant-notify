@@ -21,11 +21,19 @@ module Vagrant
               b2.use PrepareData
               b2.use Call, ServerIsRunning do |env2, b3|
                 if env2[:result]
-                  # TODO: b3.use MessageServerRunning
+                  env[:machine].ui.success("vagrant-notify-server pid: #{env2[:notify_data][:pid]}")
                 else
                   # TODO: b3.use CheckServerPortCollision
                   b3.use StartServer
-                  # TODO: b3.use BackupCommand
+
+                  b3.use PrepareData
+                  b3.use Call, ServerIsRunning do |env3, b4|
+                    if env3[:result]
+                      env3[:machine].ui.success("vagrant-notify-server pid: #{env3[:notify_data][:pid]}")
+                    else
+                      env3[:machine].ui.error("Unable to start notification server using #{env3[:machine].config.notify.bind_ip}")
+                    end
+                  end
                 end
                 # Always install the command to make sure we can fix stale ips
                 # on the guest machine
