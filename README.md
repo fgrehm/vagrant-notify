@@ -42,18 +42,6 @@ Since Linux distributions have `notify-send` pre-installed, everything should wo
 
 ### OS X
 
-You will need to create a `notify-send` script, available on `$PATH`. The script can forward the message to either
-[Growl](http://growl.info/) with [GrowlNotify](http://growl.info/downloads) (version 1.2.2 is free but unreliable)
-or to the [Notification Center](http://support.apple.com/kb/HT5362) available on OS X 10.8+
-using f.ex. [terminal-notifier](https://github.com/alloy/terminal-notifier).
-
-A (too) primitive script integrating with Growl:
-
-```bash
-#!/bin/bash
-growlnotify -t "Vagrant VM" -m "$*"
-```
-
 Check out our OS X notify-send compatible [scripts](https://github.com/fgrehm/vagrant-notify/tree/master/examples#os-x).
 
 ### Windows (beta)
@@ -64,19 +52,25 @@ Check out our Windows notify-send compatible [scripts](https://github.com/fgrehm
 
 ## Configuration
 
-Notification server is enabled by default on all guests. You can individually disable the plugin by adding the following to your `Vagrantfile`
+Notification server is enabled by default on all guests. You can individually disable the plugin by adding a false boolean to the ***notify.enable*** option in your `Vagrantfile` configuration block
 
 ```ruby
-config.notify.enable = false
+Vagrant.configure(2) do |config|
+  config.vm.box = "ubuntu/trusty64"
+  config.notify.enable = false
+end
 ```
 
 _Please note that as of v0.5.1, the notification server will automatically be disabled for any of the following
 [cloud providers](lib/vagrant-notify/plugin.rb#L77-L79)._
 
-By default, the notification server is binded to [local interfaces](lib/vagrant-notify/plugin.rb#L82-L86). For networking different than your provider's default network configuration, you can use the *bind_ip* configuration option to bind the notification server onto a different local ip address. 
+By default, the notification server is binded to [local interfaces](lib/vagrant-notify/plugin.rb#L82-L86). For networking different than your provider's default network configuration, you can use the ***notify.bind\_ip*** configuration option to bind the notification server onto a different local ip address. 
 
 ```ruby
-config.notify.bind_ip = "192.68.56.20"
+Vagrant.configure(2) do |config|
+  config.vm.box = "ubuntu/trusty64"
+  config.notify.bind_ip = "192.68.56.20"
+end
 ```
 
 **WARNING**
