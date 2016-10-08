@@ -12,7 +12,6 @@ end
 
 group :development, :test do
   gem 'vagrant',     github: 'mitchellh/vagrant'
-  gem 'vagrant-lxc', github: 'fgrehm/vagrant-lxc'
   gem 'rake'
   gem 'rspec',       '~> 2.13.0'
   gem 'rspec-spies'

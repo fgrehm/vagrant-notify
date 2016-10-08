@@ -1,7 +1,20 @@
+## [0.5.2](https://github.com/fgrehm/vagrant-notify/compare/v0.5.1...v0.5.2) (October 7, 2016)
+IMPROVEMENTS
+
+  - Support for docker, lxc, parrallels, and vmware fusion providers. [[GH-13]](https://github.com/fgrehm/vagrant-notify/issues/13)
+  - More reliable notification server status notices.
+  - New `bind_ip` configuration option.
+
+BUG FIXES
+
+  - `vagrant destroy` on a running guest will now also stop the notfication server.
+
+
 ## [0.5.1](https://github.com/fgrehm/vagrant-notify/compare/v0.5.0...v0.5.1) (July 23, 2016)
 IMPROVEMENTS
-  - New config option to disable plugin. [[GH-6]]
-  - Plugin will automatically be disabled for cloud providers. [[GH-15]]
+
+  - New config option to disable plugin. [[GH-6]](https://github.com/fgrehm/vagrant-notify/issues/6)
+  - Plugin will automatically be disabled for cloud providers. [[GH-15]](https://github.com/fgrehm/vagrant-notify/issues/15)
   - Solaris 11 and BSD guests are now supported.
   - Windows snarl wrapper script.
   - OS X growlnotify 1.2.2 wrapper script.
@@ -16,7 +29,7 @@ IMPROVEMENTS
 
   - Notification server runs as a daemon (fork() has been removed so it's compatible with Windows). [[GH-14]]
   - Windows support (beta) [[GH-14]]
-  - Notification server is available from localhost.
+  - Notification server is only available to localhost.
   - Notification server information is displayed each time vagrant is started and halted.
   - New plugin command. Ability to view notification server status, and ability for manual restart. [CLI](https://gist.github.com/alpha01/9b81caca694a2735e658f978c41600b5)
   - New notify-send example scripts for OS X and Windows

@@ -1,10 +1,4 @@
 GIT
-  remote: git://github.com/fgrehm/vagrant-lxc.git
-  revision: 4a84d95ff26bf2d887b127765a9ae404899734f9
-  specs:
-    vagrant-lxc (0.8.1.dev)
-
-GIT
   remote: git://github.com/mitchellh/vagrant.git
   revision: e3734a7a46c39cd73e79538980dd98aeaeca9656
   specs:
@@ -19,7 +13,7 @@ GIT
 PATH
   remote: .
   specs:
-    vagrant-notify (0.5.1)
+    vagrant-notify (0.5.2)
 
 GEM
   remote: https://rubygems.org/
@@ -87,8 +81,7 @@ DEPENDENCIES
   rspec (~> 2.13.0)
   rspec-spies
   vagrant!
-  vagrant-lxc!
   vagrant-notify!
 
 BUNDLED WITH
-   1.12.2
+   1.13.0
