@@ -14,7 +14,7 @@ module Vagrant
               env[:machine].config.vm.synced_folder host_dir, "/tmp/vagrant-notify", id: "vagrant-notify"
             end
             @app.call(env)
-            rescue
+            rescue Vagrant::Errors::GuestCapabilityNotFound
               env[:machine].ui.warn("vagrant-notify: guest does not support the shared folder capability.")
           end
         end
