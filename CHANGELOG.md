@@ -1,7 +1,7 @@
 ## [0.5.2](https://github.com/fgrehm/vagrant-notify/compare/v0.5.1...v0.5.2) (October 7, 2016)
 IMPROVEMENTS
 
-  - Support for docker, lxc, parrallels, and vmware fusion providers. [[GH-13]](https://github.com/fgrehm/vagrant-notify/issues/13)
+  - Support for docker, lxc, parallels, and vmware fusion providers. [[GH-13]](https://github.com/fgrehm/vagrant-notify/issues/13)
   - More reliable notification server status notices.
   - New `bind_ip` configuration option.
 
