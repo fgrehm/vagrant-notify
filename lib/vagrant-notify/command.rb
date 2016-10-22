@@ -27,28 +27,34 @@ module Vagrant
         argv = parse_options(opts)
        
         with_target_vms(argv, options) do |machine|
+
+          if machine.state.id != :running
+            @env.ui.info("Guest '#{machine.name}' is not running.")
+            next
+          end
+
           if options[:help]
             @env.ui.info(opts)
-            return 0
           end
+
           if options[:status] || options.length == 0
             @env.action_runner.run(Vagrant::Notify::Action.action_status_server, {
               :machine => machine,
             })
-            return 0
           end
+
           if options[:stop]
             @env.action_runner.run(Vagrant::Notify::Action.action_stop_server, {
               :machine => machine,
             })
-            return 0
           end
+
           if options[:start]
             @env.action_runner.run(Vagrant::Notify::Action.action_start_server, {
               :machine => machine,
             })
-            return 0
           end
+          
           if options[:restart]
             @env.action_runner.run(Vagrant::Notify::Action.action_stop_server, {
               :machine => machine,
@@ -56,7 +62,6 @@ module Vagrant
             @env.action_runner.run(Vagrant::Notify::Action.action_start_server, {
               :machine => machine,
             })
-            return 0
           end
         end
       end
