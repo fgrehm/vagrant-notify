@@ -20,10 +20,10 @@ module Vagrant
           
           return if env[:machine].config.notify.enable == false
 
-          port = next_available_port(env[:machine].config.notify.bind_ip)
+          port = next_available_port(env[:notify_data][:bind_ip])
 
           if which('ruby')
-            env[:notify_data][:pid]  = Process.spawn("ruby #{dir}/server.rb #{id} #{port} #{env[:machine].config.notify.bind_ip} #{provider_name}")
+            env[:notify_data][:pid]  = Process.spawn("ruby #{dir}/server.rb #{id} #{port} #{env[:notify_data][:bind_ip]} #{provider_name}")
             env[:notify_data][:port] = port
 
             sleep 5

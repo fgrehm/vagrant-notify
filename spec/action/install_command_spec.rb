@@ -17,7 +17,6 @@ describe Vagrant::Notify::Action::InstallCommand do
   let(:guest_tmp_path)   { '/tmp/notify-send' }
   let(:guest_path)       { '/usr/bin/notify-send' }
   let(:stubbed_template) { ERB.new('<%= host_port %>') }
-  let(:stubbed_template2) { ERB.new('<%= provider_name %>') }
 
   subject { described_class.new(app, env) }
 

@@ -12,6 +12,10 @@ module Vagrant
         def call(env)
           env[:result] = valid_process?(env[:notify_data][:pid])
 
+          unless env[:notify_data][:bind_ip]
+            env[:notify_data][:bind_ip] = env[:machine].config.notify.bind_ip if env[:machine].config.notify.bind_ip.is_a?(String)
+          end
+
           # Call the next if we have one (but we shouldn't, since this
           # middleware is built to run with the Call-type middlewares)
           @app.call env

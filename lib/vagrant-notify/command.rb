@@ -58,6 +58,7 @@ module Vagrant
           if options[:restart]
             @env.action_runner.run(Vagrant::Notify::Action.action_stop_server, {
               :machine => machine,
+              :notify_restart => true
             })
             @env.action_runner.run(Vagrant::Notify::Action.action_start_server, {
               :machine => machine,
@@ -65,7 +66,6 @@ module Vagrant
           end
         end
       end
-
     end
   end
 end

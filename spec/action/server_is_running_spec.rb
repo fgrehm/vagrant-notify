@@ -4,7 +4,7 @@ require 'vagrant-notify/action/server_is_running'
 
 describe Vagrant::Notify::Action::ServerIsRunning do
   let(:app) { lambda { |env| } }
-  let(:env) { {notify_data: {pid: pid}} }
+  let(:env) { {notify_data: {pid: pid, bind_ip: "127.0.0.1"}} }
 
   subject { described_class.new(app, env) }
 

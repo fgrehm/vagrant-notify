@@ -31,7 +31,8 @@ module Vagrant
                     if env3[:result]
                       env3[:machine].ui.success("vagrant-notify-server pid: #{env3[:notify_data][:pid]}")
                     else
-                      env3[:machine].ui.error("Unable to start notification server using #{env3[:machine].config.notify.bind_ip}")
+                      env3[:machine].ui.error("Unable to start notification server using #{env3[:notify_data][:bind_ip]}")
+                      env3[:notify_data][:pid] = env3[:notify_data][:port] = env3[:notify_data][:bind_ip] = nil
                     end
                   end
                 end

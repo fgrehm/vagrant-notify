@@ -5,7 +5,6 @@ module Vagrant
 
       def initialize()
         @enable  = UNSET_VALUE
-        @bind_ip = UNSET_VALUE
       end
 
       def validate(machine)
@@ -45,7 +44,6 @@ module Vagrant
 
       def finalize!
         @enable = 0 if @enable == UNSET_VALUE
-        @bind_ip = @bind_ip if @bind_ip == UNSET_VALUE
       end
 
       private

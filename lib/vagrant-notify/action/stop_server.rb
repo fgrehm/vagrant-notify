@@ -30,6 +30,7 @@ module Vagrant
 
           env[:notify_data][:pid]  = nil
           env[:notify_data][:port] = nil
+          env[:notify_data][:bind_ip] = nil unless env[:notify_restart]
         end
       end
     end
