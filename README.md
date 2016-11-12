@@ -46,8 +46,6 @@ Check out our OS X notify-send compatible [scripts](https://github.com/fgrehm/va
 
 ### Windows (beta)
 
-You can use the freeware application [notify-send for Windows](http://vaskovsky.net/notify-send/), make sure the notify-send binary is available on `Path`.
-
 Check out our Windows notify-send compatible [scripts](https://github.com/fgrehm/vagrant-notify/tree/master/examples#windows).
 
 ## Configuration
