@@ -17,8 +17,8 @@ or to the [Notification Center](http://support.apple.com/kb/HT5362) available on
 using f.ex. [terminal-notifier](https://github.com/alloy/terminal-notifier).
 
 
-* [terminal-notifier wrapper script](https://github.com/fgrehm/vagrant-notify/blob/master/examples/osx/notify-send_terminal-notifier) 
-* [growlnotify wrapper script](https://github.com/fgrehm/vagrant-notify/blob/master/examples/osx/notify-send_growl_for_mac)
+* [terminal-notifier wrapper script](https://github.com/fgrehm/vagrant-notify/blob/master/examples/osx/terminal-notifier/notify-send.rb)
+* [growlnotify wrapper script](https://github.com/fgrehm/vagrant-notify/blob/master/examples/osx/growl_for_mac/notify-send.rb)
 
 
 ## Windows
