@@ -1,3 +1,18 @@
+## [0.5.3](https://github.com/fgrehm/vagrant-notify/compare/v0.5.2...v0.5.3) (November 18, 2016)
+IMPROVEMENTS
+
+  - Command line operations work on multi-VM configurations.
+  - Notification when provisioning fails. [[GH-23]](https://github.com/fgrehm/vagrant-notify/issues/23)
+  - Do not start notification server if the guest is not running or has not been created.
+  - New Windows 10 notify-send notification center PowerShell script.
+
+BUG FIXES
+
+  - Correctly identify guest shared folder capability. [[GH-31]](https://github.com/fgrehm/vagrant-notify/issues/31)
+  - Properly manually restart notification server.
+  - Don't send notify-send notices to host when doing a provision if plugin is disabled.
+
+
 ## [0.5.2](https://github.com/fgrehm/vagrant-notify/compare/v0.5.1...v0.5.2) (October 7, 2016)
 IMPROVEMENTS
 
