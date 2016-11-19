@@ -6,7 +6,7 @@
 [Windows.UI.Notifications.ToastNotification, Windows.UI.Notifications, ContentType = WindowsRuntime] > $null
 
 $arguments = @{};
-$clear     = @();
+$non_opt   = @();
 $title     = "";
 $message   = "";
 $icon      = "";
@@ -14,22 +14,37 @@ $help = "Usage:
   notify-send [Options][body]
     -i, --icon ICON
     --help
-	";
+  ";
 
 
 for ( $i = 0; $i -lt $args.count; $i++ ) {
-  #if (($args[ $i ] -eq "-u") -or ($args[ $i ] -match "--urgency"))       { $arguments.Add("-u", $args[ $i+1 ])} # Option gets ignored
-	#if (($args[ $i ] -eq "-t") -or ($args[ $i ] -match "--exprire-time"))  { $arguments.Add("-t", $args[ $i+1 ])} # Option gets ignored
-	#if (($args[ $i ] -eq "-a") -or ($args[ $i ] -match "--app-name"))      { $arguments.Add("-a", $args[ $i+1 ])} # Option gets ignored
-	if (($args[ $i ] -eq "-i") -or ($args[ $i ] -match "--icon"))          { $arguments.Add("-i", $args[ $i+1 ]); $clear += $args[ $i ]; $clear += $args[ $i+1 ];  }  # Set to image
-  #if (($args[ $i ] -eq "-c") -or ($args[ $i ] -match "--category"))      { $arguments.Add("-c", $args[ $i+1 ])} # Option gets ignored
-  #if (($args[ $i ] -eq "-h") -or ($args[ $i ] -match "--hint"))          { $arguments.Add("-h", $args[ $i+1 ])} # Option gets ignored
-	#if (($args[ $i ] -eq "-v") -or ($args[ $i ] -match "--version"))       { $arguments.Add("-v", $args[ $i+1 ])} # Option gets ignored
-	#if ($args[ $i ] -match "--help")                                       { $arguments.Add("--help", "--help")}
+  switch -regex ($args[ $i ]) {
+  "^\-u="               { $arguments.Add("-u", $args[ $i ]); }          # Option gets ignored
+  "^\-u$"               { $arguments.Add("-u", $args[ $i+1 ]); $i+=1; } # Option gets ignored
+  "^\-\-urgency="       { $arguments.Add("-u", $args[ $i ]); }          # Option gets ignored
+  "^\-\-urgency$"       { $arguments.Add("-u", $args[ $i+1 ]); $i+=1; } # Option gets ignored
+  "^\-t="               { $arguments.Add("-t", $args[ $i ]); }          # Option gets ignored
+  "^\-t$"               { $arguments.Add("-t", $args[ $i+1 ]); $i+=1; } # Option gets ignored
+  "^\-\-expire\-time="  { $arguments.Add("-t", $args[ $i ]); }          # Option gets ignored
+  "^\-\-expire\-time$"  { $arguments.Add("-t", $args[ $i+1 ]); $i+=1; } # Option gets ignored
+  "^\-a="               { $arguments.Add("-a", $args[ $i ]); }          # Option gets ignored
+  "^\-a$"               { $arguments.Add("-a", $args[ $i+1 ]); $i+=1; } # Option gets ignored
+  "^\-\-app\-name="     { $arguments.Add("-a", $args[ $i ]); }          # Option gets ignored
+  "^\-\-app\-name$"     { $arguments.Add("-a", $args[ $i+1 ]); $i+=1; } # Option gets ignored
+  "^\-i=(.*)"           { $args[ $i ] -match '=(.*)'; $arguments.Add("-i", $matches[1]); }
+  "^\-i$"               { $arguments.Add("-i", $args[ $i+1 ]); $i+=1; }
+  "^\-\-icon="          { $args[ $i ] -match '=(.*)'; $arguments.Add("-i", $matches[1]); }
+  "^\-\-icon$"          { $arguments.Add("-i", $args[ $i +1]); $i+=1; }
+  "^\-h="               { $arguments.Add("-h", $args[ $i ]); }          # Option gets ignored
+  "^\-h$"               { $arguments.Add("-h", $args[ $i+1 ]); $i+=1; } # Option gets ignored
+  "^\-\-hint="          { $arguments.Add("-h", $args[ $i ]); }          # Option gets ignored
+  "^\-\-hint$"          { $arguments.Add("-h", $args[ $i+1 ]); $i+=1; } # Option gets ignored
+  "^\-v$"               { $arguments.Add("-v", "vagrant-notify"); }     # Option gets ignored
+  "^\-\-version$"       { $arguments.Add("-v", "vagrant-notify"); }     # Option gets ignored
+  "^\-\-help$"          { $arguments.Add("--help", $help); }
+  default               { $non_opt += $args[ $i ]; }
+  }
 }
-
-# Get arguments not part of -i or --icon
-$non_opt = Compare-Object -ReferenceObject $args -DifferenceObject $clear -PassThru
 
 #Write-Host "Num Args:" $args.Length;
 #Write-Host "CLI is: " $arguments.Count;
@@ -40,7 +55,6 @@ If ($arguments.Get_Item("--help")) {
   exit 1;
 }
 If ($arguments.Get_Item("-i")) {
-  Write-Host "Icon!";
   $icon = $arguments."-i";
 }
 
@@ -49,16 +63,18 @@ If ($args.Length -eq 0 ) {
   Write-Host "No Summary Specified";
   exit 1;
   
-} ElseIf ( ($non_opt.Count -eq 1) -and ($arguments.Count -match '(0|1)') ) {
-  $message = $non_opt;
+} ElseIf ($non_opt.Count -eq 1) {
+  $message = $non_opt[0];
+
   If($arguments.Get_Item("-i")) { $icon = $arguments."-i"; }
   
-} ElseIf ( ($non_opt.Count -eq 2) -and ($arguments.Count -match '(0|1)') ) {
+} ElseIf ($non_opt.Count -eq 2) {
   $title = $non_opt[0];
   $message = $non_opt[1];
+
   If($arguments.Get_Item("-i")) { $icon = $arguments."-i"; }
   
-} ElseIf ( ($args.Length -gt 2) -and ($arguments.Count -eq 0) ) {
+} ElseIf ($non_opt.Length -gt 2) {
   Write-Host "Invalid number of options";
   exit 1;
 
