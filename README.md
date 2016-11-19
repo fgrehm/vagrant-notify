@@ -21,7 +21,7 @@ $ vagrant plugin install vagrant-notify
 ### `notify-send` from guest VMs
 
 Whenever you run `vagrant up`, a Ruby [TCPServer](http://www.ruby-doc.org/stdlib-1.9.3/libdoc/socket/rdoc/TCPServer.html)
-will fire up on a port within the [usable port range](https://github.com/mitchellh/vagrant/blob/master/config/default.rb#L14)
+will fire up on a port within the [usable port range](https://www.vagrantup.com/docs/vagrantfile/machine_settings.html)
 and a Ruby [script](https://github.com/fgrehm/vagrant-notify/blob/master/files/notify-send.erb)
 will be copied over to the guest machine to replace the original `notify-send`
 command.
