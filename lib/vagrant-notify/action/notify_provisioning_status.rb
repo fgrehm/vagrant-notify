@@ -7,8 +7,8 @@ module Vagrant
         end
 
         def call(env)
-
-          system("notify-send '[#{env[:machine].name}] Provisioning with \"#{env[:provisioner_name]}\"...'") unless env[:machine].config.notify.enable == false
+          message = notify_provision_messages(env) unless env[:machine].config.notify.enable == false
+          system(message[:start]) unless env[:machine].config.notify.enable == false
 
           begin
             @app.call(env)
@@ -16,9 +16,20 @@ module Vagrant
             system("notify-send '[#{env[:machine].name}] \"#{env[:provisioner_name]}\" provision failed!'") unless env[:machine].config.notify.enable == false
             env[:machine].ui.error("#{msg}")
           else
-            system("notify-send '[#{env[:machine].name}] Finished provisioning with \"#{env[:provisioner_name]}\"'") unless env[:machine].config.notify.enable == false
+            system(message[:end]) unless env[:machine].config.notify.enable == false
           end
+        end
 
+        def notify_provision_messages(env)
+          message = Hash.new
+          if env[:provisioner_name].to_s == 'shell' and env[:provisioner].config.name
+            message[:start] = "notify-send '[#{env[:machine].name}] Provisioning with \"#{env[:provisioner_name]} (#{env[:provisioner].config.name})\"...'"
+            message[:end] = "notify-send '[#{env[:machine].name}] Finished provisioning with \"#{env[:provisioner_name]} (#{env[:provisioner].config.name})\"'" 
+          else
+            message[:start] = "notify-send '[#{env[:machine].name}] Provisioning with \"#{env[:provisioner_name]}\"...'"
+            message[:end] = "notify-send '[#{env[:machine].name}] Finished provisioning with \"#{env[:provisioner_name]}\"'"
+          end
+          return message
         end
       end
     end
