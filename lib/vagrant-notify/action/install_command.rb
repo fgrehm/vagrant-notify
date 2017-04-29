@@ -11,6 +11,7 @@ module Vagrant
           
           path = compile_command(env, 'notify-send.erb')
           install_command_on_guest(env, path)
+          check_if_ruby_on_guest(env)
 
           @app.call env
         end
@@ -35,6 +36,14 @@ module Vagrant
           env[:machine].communicate.sudo('mv /tmp/notify-send /usr/bin/notify-send && chmod +x /usr/bin/notify-send')
           if RUBY_PLATFORM =~ /mswin|msys|mingw|cygwin|bccwin|wince|emc/
             env[:machine].communicate.sudo("sed 's/\r\$//' -i /usr/bin/notify-send") # dos2unix
+          end
+        end
+
+        def check_if_ruby_on_guest(env)
+          ruby_check = ''
+          env[:machine].communicate.sudo("which ruby || true") {|type, data| ruby_check = data }
+          if ruby_check.empty?
+            env[:machine].ui.warn("Ruby is not installed on '#{env[:machine].name}' guest VM! vagrant-notify will not work until a version of Ruby is installed.")
           end
         end
       end

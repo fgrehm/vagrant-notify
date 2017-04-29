@@ -8,7 +8,9 @@ describe Vagrant::Notify::Action::InstallCommand do
   let(:config)           { mock(notify: stub(enable: true, bind_ip: "127.0.0.1")) }
   let(:env)              { {notify_data: {port: host_port}, machine: machine, tmp_path: tmp_path} }
   let(:host_port)        { 12345 }
-  let(:machine)          { mock(communicate: communicator, config: config, provider_name: provider_name) }
+  let(:ui)               { mock(warn: true)}
+  let(:name)             { 'test-vm' }
+  let(:machine)          { mock(communicate: communicator, config: config, provider_name: provider_name, ui: ui, name: name) }
   let(:communicator)     { mock(upload: true, sudo: true) }
   let(:host_ip)          { '192.168.1.2' }
   let(:provider_name)    { 'virtualbox' }
@@ -41,5 +43,9 @@ describe Vagrant::Notify::Action::InstallCommand do
 
   it 'installs command for all users' do
     communicator.should have_received(:sudo).with("mv #{guest_tmp_path} #{guest_path} && chmod +x #{guest_path}")
+  end
+
+  it 'verify if ruby is installed on guest' do
+    communicator.should have_received(:sudo).with("which ruby || true")
   end
 end
