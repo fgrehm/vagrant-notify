@@ -1,3 +1,9 @@
+## [0.5.4](https://github.com/fgrehm/vagrant-notify/compare/v0.5.3...v0.5.4) (May 4, 2017)
+IMPROVEMENTS
+
+  - Display warning if Ruby is not installed on guest. [[GH-35]](https://github.com/fgrehm/vagrant-notify/issues/35)
+  - Shell name included in provision notify message. [[GH-21]](https://github.com/fgrehm/vagrant-notify/issues/21)
+
 ## [0.5.3](https://github.com/fgrehm/vagrant-notify/compare/v0.5.2...v0.5.3) (November 18, 2016)
 IMPROVEMENTS
 
