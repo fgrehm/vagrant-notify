@@ -81,7 +81,7 @@ vagrant-notify supports the following providers:
 
   - VirtualBox
   - Docker
-  - HyperV
+  - Hyper-V
   - [LXC](https://github.com/fgrehm/vagrant-lxc)
   - [Parallels](https://github.com/Parallels/vagrant-parallels)
   - [VMWare Fusion](https://www.vagrantup.com/vmware)

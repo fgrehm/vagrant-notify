@@ -45,6 +45,8 @@ Compile using [PS1toEXE](https://github.com/aravindvcyber/PS1toEXE):
 
 * [Notification Center](https://github.com/fgrehm/vagrant-notify/blob/master/examples/windows/notification-center/notify-send.ps1)
 
-##### HyperV
-Due to HyperV's [networking configuration limitation within Vagrant](https://www.vagrantup.com/docs/hyperv/limitations.html). You will most likely need to ***bind*** to whatever gateway your virtual NAT switch is using. See https://github.com/fgrehm/vagrant-notify#configuration 
-[Default NATSwitch IP](lib/vagrant-notify/plugin.rb#L84) used by vagrant-notify.
+##### Hyper-V
+
+Due to Hyper-V's [networking configuration limitation within Vagrant](https://www.vagrantup.com/docs/hyperv/limitations.html). You will most likely need to manually ***bind*** the vagrant-notify notification server to whatever gateway your virtual NAT switch is using. See https://github.com/fgrehm/vagrant-notify#configuration 
+
+[Default NATSwitch IP](https://github.com/fgrehm/vagrant-notify/blob/master/lib/vagrant-notify/plugin.rb#L84) used by vagrant-notify.
