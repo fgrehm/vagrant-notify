@@ -76,7 +76,7 @@ module Vagrant
   # Keep an eye on https://github.com/mitchellh/vagrant/wiki/Available-Vagrant-Plugins#wiki-providers for more.
   CLOUD_PROVIDERS = %w( aws cloudstack digital_ocean hp joyent openstack rackspace
                           softlayer proxmox managed azure brightbox cloudstack vcloud
-                          vsphere )
+                          vsphere google vultr vcloudair skytap scaleway )
 
   # Supported providers and default IPs used to bind the notifcation server too.
   SUPPORTED_PROVIDERS = { :virtualbox     => '127.0.0.1',
