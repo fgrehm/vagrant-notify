@@ -44,7 +44,7 @@ Since Linux distributions have `notify-send` pre-installed, everything should wo
 
 Check out our OS X notify-send compatible [scripts](https://github.com/fgrehm/vagrant-notify/tree/master/examples#os-x).
 
-### Windows (beta)
+### Windows
 
 Check out our Windows notify-send compatible [scripts](https://github.com/fgrehm/vagrant-notify/tree/master/examples#windows).
 
@@ -62,7 +62,7 @@ end
 _Please note that as of v0.5.1, the notification server will automatically be disabled for any of the following
 [cloud providers](lib/vagrant-notify/plugin.rb#L77-L79)._
 
-By default, the notification server is binded to [local interfaces](lib/vagrant-notify/plugin.rb#L82-L86). For networking different than your provider's default network configuration, you can use the ***notify.bind\_ip*** configuration option to bind the notification server onto a different local ip address. 
+By default, the notification server is binded to [local interfaces](lib/vagrant-notify/plugin.rb#L81-L88). For networking different than your provider's default network configuration, you can use the ***notify.bind\_ip*** configuration option to bind the notification server onto a different local ip address. 
 
 ```ruby
 Vagrant.configure(2) do |config|
@@ -81,6 +81,7 @@ vagrant-notify supports the following providers:
 
   - VirtualBox
   - Docker
+  - HyperV
   - [LXC](https://github.com/fgrehm/vagrant-lxc)
   - [Parallels](https://github.com/Parallels/vagrant-parallels)
   - [VMWare Fusion](https://www.vagrantup.com/vmware)

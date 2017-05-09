@@ -81,6 +81,7 @@ module Vagrant
   # Supported providers and default IPs used to bind the notifcation server too.
   SUPPORTED_PROVIDERS = { :virtualbox     => '127.0.0.1',
                           :docker         => '172.17.0.1',
+                          :hyperv         => '172.21.21.1',
                           :lxc            => '10.0.3.1',
                           :parallels      => '10.211.55.2',
                           :vmware_fusion  => '192.168.172.1'
