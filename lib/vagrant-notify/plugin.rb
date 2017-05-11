@@ -48,7 +48,7 @@ module Vagrant
 
         # Third party provider plugins:
         if defined?(HashiCorp::VagrantVMwarefusion)
-          require 'vagrant-parallels/action'
+          require 'vagrant-vmware-fusion/action'
           hook.before HashiCorp::VagrantVMwarefusion::Action::Suspend, Vagrant::Notify::Action.action_stop_server
         end
         if defined?(VagrantPlugins::Parallels)
