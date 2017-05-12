@@ -9,7 +9,7 @@ module Vagrant
         def call(env)         
           begin
             unless env[:machine].config.notify.enable == false 
-              host_dir = Pathname("/tmp/vagrant-notify/#{env[:machine].id}")
+              host_dir = Pathname("/tmp/vagrant-notify/#{env[:machine].index_uuid}")
               FileUtils.mkdir_p host_dir.to_s unless host_dir.exist?
               env[:machine].config.vm.synced_folder host_dir, "/tmp/vagrant-notify", id: "vagrant-notify"
             end
