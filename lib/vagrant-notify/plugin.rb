@@ -51,6 +51,10 @@ module Vagrant
           require 'vagrant-vmware-fusion/action'
           hook.before HashiCorp::VagrantVMwarefusion::Action::Suspend, Vagrant::Notify::Action.action_stop_server
         end
+        if defined?(HashiCorp::VagrantVMwareworkstation)
+          require 'vagrant-vmware-workstation/action'
+          hook.before HashiCorp::VagrantVMwareworkstation::Action::Suspend, Vagrant::Notify::Action.action_stop_server
+        end
         if defined?(VagrantPlugins::Parallels)
           require 'vagrant-parallels/action'
           hook.before VagrantPlugins::Parallels::Action::Suspend, Vagrant::Notify::Action.action_stop_server
@@ -84,6 +88,7 @@ module Vagrant
                           :hyperv         => '172.21.21.1',
                           :lxc            => '10.0.3.1',
                           :parallels      => '10.211.55.2',
-                          :vmware_fusion  => '192.168.172.1'
+                          :vmware_fusion  => '192.168.172.1',
+                          :vmware_workstation => '192.168.38.1'
                         }
 end

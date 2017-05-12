@@ -85,6 +85,7 @@ vagrant-notify supports the following providers:
   - [LXC](https://github.com/fgrehm/vagrant-lxc)
   - [Parallels](https://github.com/Parallels/vagrant-parallels)
   - [VMWare Fusion](https://www.vagrantup.com/vmware)
+  - [VMWare Workstation](https://www.vagrantup.com/vmware)
 
 vagrant-notify has been tested and known to work with Linux, Solaris 11, FreeBSD, OpenBSD, and NetBSD guests. (notify-send icon forwarding feature is not supported on BSD guests)
 
