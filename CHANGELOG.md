@@ -1,3 +1,12 @@
+## [0.5.5](https://github.com/fgrehm/vagrant-notify/compare/v0.5.4...v0.5.5) (May 13, 2017)
+IMPROVEMENTS
+
+  - Support for Hyper-V and VMWare Workstation providers. [[GH-32]](https://github.com/fgrehm/vagrant-notify/issues/32) [[GH-33]](https://github.com/fgrehm/vagrant-notify/issues/33)
+  - Disable plugin for google, vultr, vcloudair, skytap, and scaleway cloud providers.
+
+BUG FIXES
+  - Notifcation server suspend fix on VMWare Fusion.
+
 ## [0.5.4](https://github.com/fgrehm/vagrant-notify/compare/v0.5.3...v0.5.4) (May 4, 2017)
 IMPROVEMENTS
 
