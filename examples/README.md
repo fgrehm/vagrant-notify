@@ -19,7 +19,7 @@ using f.ex. [terminal-notifier](https://github.com/alloy/terminal-notifier).
 
 * [terminal-notifier wrapper script](https://github.com/fgrehm/vagrant-notify/blob/master/examples/osx/terminal-notifier/notify-send.rb)
 * [growlnotify wrapper script](https://github.com/fgrehm/vagrant-notify/blob/master/examples/osx/growl_for_mac/notify-send.rb)
-
+* [applescript wrapper script](https://github.com/fgrehm/vagrant-notify/blob/master/examples/osx/applescript/notify-send.rb)
 
 ## Windows
 
