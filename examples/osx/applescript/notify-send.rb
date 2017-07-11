@@ -2,7 +2,7 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-# Example OS X (> 10.9) applescript notify-send wrapper script.
+# Example OS X (>= 10.9) applescript notify-send wrapper script.
 
 require 'optparse'
 
