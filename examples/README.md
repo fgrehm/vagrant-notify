@@ -11,15 +11,14 @@ growlnotify -t "Vagrant VM" -m "$*"
 
 ## OS X
 
-The `notify-send` script can forward the message to either
+The easiest configuration is using the built-in [AppleScript](https://github.com/fgrehm/vagrant-notify/blob/master/examples/osx/applescript/notify-send.rb) support for notifications. Alternatively, you can also create a `notify-send` script that forwards messages to other third party notifications applications like
 [Growl](http://growl.info/) with [GrowlNotify](http://growl.info/downloads) (version 1.2.2 is free but unreliable)
 or to the [Notification Center](http://support.apple.com/kb/HT5362) available on OS X 10.8+
 using f.ex. [terminal-notifier](https://github.com/alloy/terminal-notifier).
 
-
+* [AppleScript wrapper script](https://github.com/fgrehm/vagrant-notify/blob/master/examples/osx/applescript/notify-send.rb)
 * [terminal-notifier wrapper script](https://github.com/fgrehm/vagrant-notify/blob/master/examples/osx/terminal-notifier/notify-send.rb)
 * [growlnotify wrapper script](https://github.com/fgrehm/vagrant-notify/blob/master/examples/osx/growl_for_mac/notify-send.rb)
-* [applescript wrapper script](https://github.com/fgrehm/vagrant-notify/blob/master/examples/osx/applescript/notify-send.rb)
 
 ## Windows
 
