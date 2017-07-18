@@ -1,10 +1,23 @@
 module Vagrant
   module Notify
     class Config < Vagrant.plugin(2, :config)
-      attr_accessor :enable, :bind_ip
+
+      # Enable?
+      attr_accessor :enable
+
+      # Bind IP
+      attr_accessor :bind_ip
+
+      # Notify send application
+      attr_accessor :sender_app
+
+      # Notify send params string
+      attr_accessor :sender_params_str
 
       def initialize()
         @enable  = UNSET_VALUE
+        @sender_app = UNSET_VALUE
+        @sender_params_str = UNSET_VALUE
       end
 
       def validate(machine)
@@ -44,6 +57,8 @@ module Vagrant
 
       def finalize!
         @enable = 0 if @enable == UNSET_VALUE
+        @sender_app = "notify-send" if @sender_app = UNSET_VALUE
+        @sender_params_str = "[--app-name {app_name}] [--urgency {urgency}] [--expire-time {expire_time}] [--icon {icon}] [--category {category}] [--hint {hint}] {message}" if @sender_params_str == UNSET_VALUE
       end
 
       private
