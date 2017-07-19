@@ -7,9 +7,11 @@ module Vagrant
       HTTP_RESPONSE = "Hi! You just reached the vagrant notification server"
 
       def self.run(id, port, bind_ip, sender_app, sender_params_str, machine_name='default', provider='virtualbox')
-        #id           = env[:machine].id
-        #machine_name = env[:machine].name
-        #provider     = env[:machine].provider_name
+        #id                   = env[:machine].id
+        #machine_name         = env[:machine].name
+        #provider             = env[:machine].provider_name
+        #sender_app           = env[:machine].sender_app
+        #sender_params_str    = env[:machine].sender_params_str
 
         if __FILE__ == $0
           begin
@@ -38,7 +40,7 @@ module Vagrant
         @id           = id
         @machine_name = machine_name
         @provider     = provider
-        @sender_app  = sender_app
+        @sender_app = Shellwords.escape(sender_app)
         @sender_params = sender_params_str
       end
 
@@ -47,7 +49,7 @@ module Vagrant
         if http_request?(args)
           client.puts HTTP_RESPONSE
         else
-          parsed_args=map_params_str(@sender_params, JSON.parse(args))
+          parsed_args=Shellwords.escape(map_params_str(@sender_params, JSON.parse(args)))
           fix_icon_path! parsed_args
           system "#{@sender_app} #{parsed_args}"
         end
