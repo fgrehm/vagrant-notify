@@ -71,8 +71,19 @@ Vagrant.configure(2) do |config|
 end
 ```
 
-By default local server uses ***notify_send*** command for displaying notifications, there is a possibility to use different app without wrapper scripts. ***notify.sender\_app*** configuration option is used for specifing application name. ***notify.sender_params_str*** defines
+By default local server uses ***notify_send*** command for displaying notifications, there is a possibility to use different app without wrapper scripts: 
+* ***notify.sender\_app*** configuration option is used for specifing application name
+* ***notify.sender\_params\_str*** defines how params for applications will be passed. You can use these variables (escaped by `{` and `}` characters) here:
+  * ***urgency*** - urgency level for notification
+  * ***expire\_time*** - when notification will expire?
+  * ***app\_name*** - application name
+  * ***icon*** - icon for the notification (can be multiple, devided by comma)
+  * ***category*** - category for the notification (can be multiple, devided by comma)
+  * ***hint*** - icon for the notification (need to use this format: TYPE:NAME:VALUE)
+  * ***message*** - message to send
+* ***notify.sender\_params\_escape*** - should params will be escaped when passed to script (default: true)
 
+This is example how to to run notifications with build-in MacOS X notifications support:
 ```ruby
 Vagrant.configure(2) do |config|
   config.vm.box = "ubuntu/trusty64"
