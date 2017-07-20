@@ -14,10 +14,14 @@ module Vagrant
       # Notify send params string
       attr_accessor :sender_params_str
 
+      # Sender params escape
+      attr_accessor :sender_params_escape
+
       def initialize()
         @enable  = UNSET_VALUE
         @sender_app = UNSET_VALUE
         @sender_params_str = UNSET_VALUE
+        @sender_params_escape = UNSET_VALUE
       end
 
       def validate(machine)
@@ -31,8 +35,12 @@ module Vagrant
 
         if @enable != 0
           if @enable != false && @enable != true
-            errors << "Unknown option: #{@enable}"
+            errors << "Unknown option for enable: #{@enable}"
           end
+        end
+
+        if @sender_params_escape != false && @sender_params_escape != true && @sender_params_escape != UNSET_VALUE
+          errors << "Unknown option for @sender_params_escape: #{@sender_params_escape}"
         end
 
         if backed_by_supported_provider?(machine)
@@ -57,8 +65,9 @@ module Vagrant
 
       def finalize!
         @enable = 0 if @enable == UNSET_VALUE
-        @sender_app = "notify-send" if @sender_app = UNSET_VALUE
+        @sender_app = "notify-send" if @sender_app == UNSET_VALUE
         @sender_params_str = "[--app-name {app_name}] [--urgency {urgency}] [--expire-time {expire_time}] [--icon {icon}] [--category {category}] [--hint {hint}] {message}" if @sender_params_str == UNSET_VALUE
+        @sender_params_escape = true if @sender_app == UNSET_VALUE
       end
 
       private

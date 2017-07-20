@@ -1,17 +1,19 @@
 require 'socket'
 require 'json'
+require 'tmpdir'
 
 module Vagrant
   module Notify
     class Server
       HTTP_RESPONSE = "Hi! You just reached the vagrant notification server"
 
-      def self.run(id, port, bind_ip, sender_app, sender_params_str, machine_name='default', provider='virtualbox')
+      def self.run(id, port, bind_ip, sender_app, sender_params_str, sender_params_escape, machine_name='default', provider='virtualbox')
         #id                   = env[:machine].id
         #machine_name         = env[:machine].name
         #provider             = env[:machine].provider_name
-        #sender_app           = env[:machine].sender_app
-        #sender_params_str    = env[:machine].sender_params_str
+        #sender_app           = env[:machine].config.sender_app
+        #sender_params_str    = env[:machine].config.sender_params_str
+        #sender_params_escape = env[:machine].config.sender_params_escape
 
         if __FILE__ == $0
           begin
@@ -19,7 +21,7 @@ module Vagrant
           rescue
               exit 1
           end
-          server = self.new(id, sender_app, sender_params_str, machine_name, provider)
+          server = self.new(id, sender_app, sender_params_str, sender_params_escape, machine_name, provider)
 
           # Have to wrap this in a begin/rescue block so we can be certain the server is running at all times.
           begin
@@ -36,12 +38,13 @@ module Vagrant
         end
       end
 
-      def initialize(id, sender_app, sender_params_str, machine_name = :default, provider = :virtualbox)
+      def initialize(id, sender_app, sender_params_str, sender_params_escape, machine_name = :default, provider = :virtualbox)
         @id           = id
         @machine_name = machine_name
         @provider     = provider
-        @sender_app = Shellwords.escape(sender_app)
-        @sender_params = sender_params_str
+        @sender_app = sender_app
+        @sender_params_str = sender_params_str
+        @sender_params_escape = sender_params_escape
       end
 
       def receive_data(client)
@@ -49,7 +52,8 @@ module Vagrant
         if http_request?(args)
           client.puts HTTP_RESPONSE
         else
-          parsed_args=Shellwords.escape(map_params_str(@sender_params, JSON.parse(args)))
+          json_data=JSON.parse(args)
+          parsed_args=map_params_str(json_data)
           fix_icon_path! parsed_args
           system "#{@sender_app} #{parsed_args}"
         end
@@ -62,19 +66,18 @@ module Vagrant
 
       # Maps params str with values
       #
-      #@param params_str  [String]  Params string from config
       #@param data        [Map]     Array values map
       #
       #@return [String]
-      def map_params_str(params_str, data)
-        cmd=params_str
+      def map_params_str(data)
+        cmd=@sender_params_str + ''
         cmd.gsub! '%', '%%'
 
         replace=[]
         cmd.scan(/\[[^\]]+\]/).each do |part|
           variable=part[/\{[^\}]+\}/][1..-2]
           if data.key? variable
-            replace << part[1..-2].sub('{' + variable + '}', data[variable])
+            replace << part[1..-2].sub('{' + variable + '}', escape_param(data[variable]))
             cmd.sub! part, '%'+replace.length.to_s+'$s'
           else
             cmd.sub! part, ''
@@ -84,7 +87,7 @@ module Vagrant
         cmd.scan(/\{[^\}]+\}/).each do |part|
           variable=part[1..-2]
           if data.key? variable
-            replace << data[variable]
+            replace << escape_param(data[variable])
             cmd.sub! part, '%'+replace.length.to_s+'$s'
           end
         end
@@ -92,9 +95,26 @@ module Vagrant
       end
 
       def log(message)
-        File.open("/tmp/vagrant-notify-error-#{@id}.log", 'a+') do |log|
+        File.open(@log_path, 'a+') do |log|
           log.puts "#{message}"
         end
+      end
+
+      # Escapes param
+      #
+      #@param param [String] Param
+      #
+      #@return [String]
+      def escape_param(param)
+        return param unless @sender_params_escape
+        '"' + param.gsub('"', "\\\"").gsub("'", "\\'").gsub("\\", "\\\\") + '"'
+      end
+
+      # Gets log path
+      #
+      #@return [String]
+      def log_path
+        File.join Dir.tmpdir(), "vagrant-notify-error-#{@id}.log"
       end
 
       def read_args(client)
@@ -127,5 +147,6 @@ port = ARGV[1]
 bind_ip = ARGV[2]
 sender_app = ARGV[3]
 sender_params_str = ARGV[4]
+sender_params_escape = ARGV[5]
 
-Vagrant::Notify::Server.run id, port, bind_ip, sender_app, sender_params_str
+Vagrant::Notify::Server.run id, port, bind_ip, sender_app, sender_params_str, sender_params_escape

@@ -71,6 +71,17 @@ Vagrant.configure(2) do |config|
 end
 ```
 
+By default local server uses ***notify_send*** command for displaying notifications, there is a possibility to use different app without wrapper scripts. ***notify.sender\_app*** configuration option is used for specifing application name. ***notify.sender_params_str*** defines
+
+```ruby
+Vagrant.configure(2) do |config|
+  config.vm.box = "ubuntu/trusty64"
+  config.notify.sender_params_str = '-e \'display notification {message} sound name \"default\"\''
+  config.notify.sender_app = 'osascript'
+  config.notify.sender_params_escape = true
+end
+```
+
 **WARNING**
 
 _Do **NOT** bind the notification server to an IP accessible over a network! The notification server does not have any authentication and doing so will leave your system vulnerable to remote command execution._

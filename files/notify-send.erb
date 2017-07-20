@@ -24,12 +24,14 @@ OptionParser.new do |opts|
 
 end.parse!
 
+options[:message]=ARGV.pop
+
 # BSD guests do not support shared folders
 unless RUBY_PLATFORM =~ /freebsd|openbsd|netbsd/
-  if options[:i]
-    new_filename = options[:i].gsub('/', '-')
-    FileUtils.cp options[:i], "<%= shared_folder %>/#{new_filename}"
-    options[:i]  = new_filename
+if options[:icon]
+new_filename = options[:icon].gsub('/', '-')
+FileUtils.cp options[:icon], "<%= shared_folder %>/#{new_filename}"
+options[:icon]  = new_filename
   end
 end
 
