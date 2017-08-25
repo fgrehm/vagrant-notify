@@ -11,6 +11,7 @@ module Vagrant
 
       start_server_hook = lambda do |hook|
         require_relative './action'
+        hook.before Vagrant::Action::Builtin::WaitForCommunicator, Vagrant::Action::Builtin::ConfigValidate
         hook.after Vagrant::Action::Builtin::WaitForCommunicator, Vagrant::Notify::Action.action_start_server
       end
 
