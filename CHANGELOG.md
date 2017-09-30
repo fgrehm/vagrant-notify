@@ -1,3 +1,8 @@
+## [0.5.6](https://github.com/fgrehm/vagrant-notify/compare/v0.5.5...v0.5.6) (September 29, 2017)
+BUG FIXES
+
+  - `vagrant resume` bug fix. [[GH-39]](https://github.com/fgrehm/vagrant-notify/issues/39)
+
 ## [0.5.5](https://github.com/fgrehm/vagrant-notify/compare/v0.5.4...v0.5.5) (May 13, 2017)
 IMPROVEMENTS
 
