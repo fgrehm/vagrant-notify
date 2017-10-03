@@ -66,7 +66,7 @@ module Vagrant
       def finalize!
         @enable = 0 if @enable == UNSET_VALUE
         @sender_app = "notify-send" if @sender_app == UNSET_VALUE
-        @sender_params_str = "[--app-name {app_name}] [--urgency {urgency}] [--expire-time {expire_time}] [--icon {icon}] [--category {category}] [--hint {hint}] {message}" if @sender_params_str == UNSET_VALUE
+        @sender_params_str = "[--app-name {app_name}] [--urgency {urgency}] [--expire-time {expire_time}] [--icon {icon}] [--category {category}] [--hint {hint}] {title} [{message}]" if @sender_params_str == UNSET_VALUE
         @sender_params_escape = true if @sender_app == UNSET_VALUE
       end
 

@@ -12,7 +12,7 @@ require 'json'
 
 options = {}
 OptionParser.new do |opts|
-  opts.banner = "Usage: notify-send.rb [options]"
+opts.banner = "Usage: notify-send.rb TITLE [MESSAGE] [options]"
 
   opts.on('-u', '--urgency LEVEL')           { |v| options[:urgency] = v }
   opts.on('-t', '--expire-time TIME')        { |v| options[:expire_time] = v }
@@ -21,10 +21,10 @@ OptionParser.new do |opts|
   opts.on('-c', '--category TYPE[,TYPE...]') { |v| options[:category] = v }
   opts.on('-h', '--hint TYPE:NAME:VALUE')    { |v| options[:hint] = v }
   opts.on('-v', '--version')                 { |v| options[:version] = v }
-
 end.parse!
 
-options[:message]=ARGV.pop
+options[:title]=ARGV.pop
+options[:message]=ARGV.pop if ARGV.length > 0
 
 # BSD guests do not support shared folders
 unless RUBY_PLATFORM =~ /freebsd|openbsd|netbsd/
@@ -47,7 +47,6 @@ if "<%= provider_name %>" == "virtualbox"
 else
   client_ip = "<%= client_ip %>"
 end
-
 
 TCPSocket.open client_ip, <%= host_port %> do |s|
   s.send cmd, 0
