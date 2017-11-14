@@ -1,16 +1,20 @@
 require 'vagrant-notify/server'
 
 describe Vagrant::Notify::Server do
-  let(:arguments)  { "-- '20 examples, 1 failure\n10 seconds'" }
+  let(:arguments)  { '{"message":"It Works!"}' }
   let(:client)     { StringIO.new(arguments) }
+  let(:sender_app) { 'notify-send' }
+  let(:sender_params_str) { "[--app-name {app_name}] [--urgency {urgency}] [--expire-time {expire_time}] [--icon {icon}] [--category {category}] [--hint {hint}] {message}" }
+  let(:sender_params_escape) { true }
   let(:machine_id) { 'machine-id' }
+  let(:return_string) { '"It Works!"'}
 
-  subject { described_class.new(machine_id) }
+  subject { described_class.new(machine_id, sender_app, sender_params_str, sender_params_escape) }
 
   before { subject.stub(:system => true) }
 
   it 'runs notify-send with received data from client' do
-    subject.should_receive(:system).with("notify-send #{arguments}")
+    subject.should_receive(:system).with("#{sender_app}       #{return_string}") #server.rb needs to be updated so it strips this exta white space in the response
     subject.receive_data(client)
   end
 
@@ -20,12 +24,12 @@ describe Vagrant::Notify::Server do
   end
 
   context 'notification with an icon' do
-    let(:arguments) { "-i 'foo/bar.jpg'" }
+    let(:arguments) { '{"icon":"-tmp-foo-bar.jpg","message":"Test message"}' }
 
     before { subject.receive_data(client) }
 
     it 'rewrites icon path before sending the notification' do
-      subject.should have_received(:system).with("notify-send -i '/tmp/vagrant-notify/#{machine_id}/foo-bar.jpg'")
+      subject.should have_received(:system).with("#{sender_app}    --icon \"-tmp-foo-bar.jpg\"   \"Test message\"")
     end
   end
 
