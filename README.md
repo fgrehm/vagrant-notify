@@ -71,6 +71,28 @@ Vagrant.configure(2) do |config|
 end
 ```
 
+By default local server uses ***notify_send*** command for displaying notifications, there is a possibility to use different app without wrapper scripts: 
+* ***notify.sender\_app*** configuration option is used for specifing application name (default: `notify-send`)
+* ***notify.sender\_params\_str*** defines how params for applications will be passed (default: `[--app-name {app_name}] [--urgency {urgency}] [--expire-time {expire_time}] [--icon {icon}] [--category {category}] [--hint {hint}] {message}`). You can use these variables (escaped by `{` and `}` characters) here:
+  * ***urgency*** - urgency level for notification
+  * ***expire\_time*** - when notification will expire?
+  * ***app\_name*** - application name
+  * ***icon*** - icon for the notification (can be multiple, devided by comma)
+  * ***category*** - category for the notification (can be multiple, devided by comma)
+  * ***hint*** - icon for the notification (need to use this format: TYPE:NAME:VALUE)
+  * ***message*** - message to send
+* ***notify.sender\_params\_escape*** - should params will be escaped when passed to script (default: `true`)
+
+This is example how to to run notifications with build-in MacOS X notifications support:
+```ruby
+Vagrant.configure(2) do |config|
+  config.vm.box = "ubuntu/trusty64"
+  config.notify.sender_params_str = '-e \'display notification {message} sound name \"default\"\''
+  config.notify.sender_app = 'osascript'
+  config.notify.sender_params_escape = true
+end
+```
+
 **WARNING**
 
 _Do **NOT** bind the notification server to an IP accessible over a network! The notification server does not have any authentication and doing so will leave your system vulnerable to remote command execution._

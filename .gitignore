@@ -17,3 +17,4 @@ test/version_tmp
 tmp
 /development/.vagrant
 .DS_Store
+.idea/
