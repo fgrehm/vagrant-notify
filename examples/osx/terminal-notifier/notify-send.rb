@@ -23,9 +23,9 @@ if ARGV.length == 0
   puts "No summary specified"
   exit 1
 elsif ARGV.length == 1
-  message = "-message '\\#{ARGV[0]}'"
+  message = "-message " + "#{ARGV[0]}".inspect
 elsif ARGV.length == 2
-  message = "-title '\\#{ARGV[0]}' -message '\\#{ARGV[1]}'"
+  message = "-title " + "#{ARGV[0]}".inspect + " -message " + "#{ARGV[1]}".inspect
 else
   puts "Invalid number of options."
   exit 1
