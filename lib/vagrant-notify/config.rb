@@ -49,8 +49,6 @@ module Vagrant
             unless @bind_ip =~ Resolv::IPv4::Regex
               errors << "Invalid bind IP address: #{@bind_ip}"
             end
-          elsif @bind_ip.is_a?(FalseClass) || @bind_ip.is_a?(Fixnum) || @bind_ip.is_a?(Array) || @bind_ip.is_a?(Hash)
-            errors << "Unknown bind IP address: #{@bind_ip}"
           else
             @bind_ip = SUPPORTED_PROVIDERS[machine.provider_name]
           end
