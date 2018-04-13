@@ -46,6 +46,6 @@ describe Vagrant::Notify::Action::InstallCommand do
   end
 
   it 'verify if ruby is installed on guest' do
-    communicator.should have_received(:sudo).with("which ruby || true")
+    communicator.should have_received(:sudo).with("which ruby 2>/dev/null || true")
   end
 end
