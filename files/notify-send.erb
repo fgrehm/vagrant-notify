@@ -48,6 +48,6 @@ else
   client_ip = "<%= client_ip %>"
 end
 
-TCPSocket.open client_ip, <%= host_port %> do |s|
+TCPSocket.open client_ip.strip, <%= host_port %> do |s|
   s.send cmd, 0
 end
