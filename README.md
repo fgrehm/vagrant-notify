@@ -60,7 +60,7 @@ end
 ```
 
 _Please note that as of v0.5.1, the notification server will automatically be disabled for any of the following
-[cloud providers](lib/vagrant-notify/plugin.rb#L81-L83)._
+[cloud providers](lib/vagrant-notify/plugin.rb#L81-L84)._
 
 By default, the notification server is binded to [local interfaces](lib/vagrant-notify/plugin.rb#L86-L93). For networking different than your provider's default network configuration, you can use the ***notify.bind\_ip*** configuration option to bind the notification server onto a different local ip address. 
 
