@@ -12,7 +12,7 @@ describe Vagrant::Notify::Action::ServerIsRunning do
     let(:pid) { nil }
 
     it 'sets the result to false' do
-      env[:result].should be_false
+      env[:result].should be_falsey
     end
   end
 
@@ -26,7 +26,7 @@ describe Vagrant::Notify::Action::ServerIsRunning do
       end
 
       it 'sets the result to true' do
-        env[:result].should be_true
+        env[:result].should be_truthy
       end
     end
 
@@ -37,7 +37,7 @@ describe Vagrant::Notify::Action::ServerIsRunning do
       end
 
       it 'sets the result to false' do
-        env[:result].should be_false
+        env[:result].should be_falsey
       end
     end
   end

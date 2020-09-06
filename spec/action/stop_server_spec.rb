@@ -4,10 +4,10 @@ require 'vagrant-notify/action/stop_server'
 
 describe Vagrant::Notify::Action::StopServer do
   let(:app)          { lambda { |env| } }
-  let(:config)       { mock(notify: stub(enable: true)) }
-  let(:communicator) { mock(sudo: true) }
-  let(:ui)           { mock(success: true) }
-  let(:machine)      { mock(communicate: communicator, state: stub(id: :running), ui: ui, config: config) }
+  let(:config)       { double(notify: double(enable: true)) }
+  let(:communicator) { double(sudo: true) }
+  let(:ui)           { double(success: true) }
+  let(:machine)      { double(communicate: communicator, state: double(id: :running), ui: ui, config: config) }
   let(:env)          { {notify_data: {pid: pid, port: 1234}, machine: machine} }
   let(:pid)          { '42' }
   let(:port)         { described_class::PORT }
@@ -20,7 +20,7 @@ describe Vagrant::Notify::Action::StopServer do
   end
 
   it 'kills the notification server' do
-    Process.should have_received(:kill).with('KILL', pid.to_i)
+    Process.should have_received(:kill).with('KILL', pid.to_i).at_most(2).times
   end
 
   it "removes server PID from notify data" do

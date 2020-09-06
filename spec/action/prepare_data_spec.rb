@@ -5,7 +5,7 @@ require 'vagrant-notify/action/prepare_data'
 describe Vagrant::Notify::Action::PrepareData do
   let(:data_dir) { Pathname.new(Dir.mktmpdir) }
   let(:app)      { lambda { |env| } }
-  let(:env)      { {machine: mock(data_dir: data_dir)} }
+  let(:env)      { {machine: double(data_dir: data_dir)} }
 
   subject { described_class.new(app, env) }
 

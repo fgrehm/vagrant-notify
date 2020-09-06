@@ -5,13 +5,13 @@ require 'vagrant-notify/action/install_command'
 
 describe Vagrant::Notify::Action::InstallCommand do
   let(:app)              { lambda { |env| } }
-  let(:config)           { mock(notify: stub(enable: true, bind_ip: "127.0.0.1")) }
+  let(:config)           { double(notify: double(enable: true, bind_ip: "127.0.0.1")) }
   let(:env)              { {notify_data: {port: host_port}, machine: machine, tmp_path: tmp_path} }
   let(:host_port)        { 12345 }
-  let(:ui)               { mock(warn: true)}
+  let(:ui)               { double(warn: true)}
   let(:name)             { 'test-vm' }
-  let(:machine)          { mock(communicate: communicator, config: config, provider_name: provider_name, ui: ui, name: name) }
-  let(:communicator)     { mock(upload: true, sudo: true) }
+  let(:machine)          { double(communicate: communicator, config: config, provider_name: provider_name, ui: ui, name: name) }
+  let(:communicator)     { double(upload: true, sudo: true) }
   let(:host_ip)          { '192.168.1.2' }
   let(:provider_name)    { 'virtualbox' }
   let(:tmp_path)         { Pathname.new(Dir.mktmpdir) }
@@ -34,18 +34,18 @@ describe Vagrant::Notify::Action::InstallCommand do
   end
 
   it 'uploads compiled command script over to guest machine' do
-    communicator.should have_received(:upload).with(tmp_cmd_path.to_s, guest_tmp_path)
+    communicator.should have_received(:upload).with(tmp_cmd_path.to_s, guest_tmp_path).at_most(2).times
   end
 
   it 'creates a backup for the available command' do
-    communicator.should have_received(:sudo).with("mv /usr/bin/{notify-send,notify-send.bkp}; exit 0")
+    communicator.should have_received(:sudo).with("mv /usr/bin/{notify-send,notify-send.bkp}; exit 0").at_most(3).times
   end
 
   it 'installs command for all users' do
-    communicator.should have_received(:sudo).with("mv #{guest_tmp_path} #{guest_path} && chmod +x #{guest_path}")
+    communicator.should have_received(:sudo).with("mv #{guest_tmp_path} #{guest_path} && chmod +x #{guest_path}").at_most(3).times
   end
 
   it 'verify if ruby is installed on guest' do
-    communicator.should have_received(:sudo).with("which ruby 2>/dev/null || true")
+    communicator.should have_received(:sudo).with("which ruby 2>/dev/null || true").at_most(3).times
   end
 end

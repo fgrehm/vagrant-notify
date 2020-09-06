@@ -13,6 +13,6 @@ end
 group :development, :test do
   gem 'vagrant',     github: 'mitchellh/vagrant'
   gem 'rake'
-  gem 'rspec',       '~> 2.13.0'
+  gem 'rspec',       '~> 2.99.0'
   gem 'rspec-spies'
 end

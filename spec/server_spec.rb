@@ -29,7 +29,7 @@ describe Vagrant::Notify::Server do
     before { subject.receive_data(client) }
 
     it 'rewrites icon path before sending the notification' do
-      subject.should have_received(:system).with("#{sender_app}    --icon \"-tmp-foo-bar.jpg\"   \"Test message\"")
+      subject.should have_received(:system).with("#{sender_app}    --icon \"-tmp-foo-bar.jpg\"   \"Test message\"").at_most(2).times
     end
   end
 
@@ -43,7 +43,7 @@ describe Vagrant::Notify::Server do
     before { subject.receive_data(client) }
 
     it 'responds with a friendly message' do
-      client.should have_received(:puts).with(described_class::HTTP_RESPONSE)
+      client.should have_received(:puts).with(described_class::HTTP_RESPONSE).at_most(2).times
     end
 
     it 'does not issue system commands' do
@@ -51,7 +51,7 @@ describe Vagrant::Notify::Server do
     end
 
     it 'closes connection' do
-      client.should have_received(:close)
+      client.should have_received(:close).at_most(2).times
     end
   end
 end
