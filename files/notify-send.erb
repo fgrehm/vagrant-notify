@@ -28,10 +28,10 @@ options[:message]=ARGV.pop if ARGV.length > 0
 
 # BSD guests do not support shared folders
 unless RUBY_PLATFORM =~ /freebsd|openbsd|netbsd/
-if options[:icon]
-new_filename = options[:icon].gsub('/', '-')
-FileUtils.cp options[:icon], "<%= shared_folder %>/#{new_filename}"
-options[:icon]  = new_filename
+  if options[:icon]
+    new_filename = options[:icon].gsub('/', '-')
+    FileUtils.cp options[:icon], "<%= shared_folder %>/#{new_filename}"
+    options[:icon]  = new_filename
   end
 end
 
