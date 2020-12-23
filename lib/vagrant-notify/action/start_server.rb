@@ -28,7 +28,7 @@ module Vagrant
           sender_params_escape = (env[:machine].config.notify.sender_params_escape) ? 1 : 0
 
           if which('ruby')
-            env[:notify_data][:pid] = Process.spawn("ruby #{dir}/server.rb #{id} #{port} #{bind_ip} #{sender_app} #{sender_params_str} #{sender_params_escape} #{provider_name}")
+            env[:notify_data][:pid] = Process.spawn("ruby", "#{dir}/server.rb", "#{id}", "#{port}", "#{bind_ip}", "#{sender_app}", "#{sender_params_str}", "#{sender_params_escape}", "#{provider_name}")
             env[:notify_data][:port] = port
 
             sleep 5
