@@ -71,7 +71,7 @@ Vagrant.configure(2) do |config|
 end
 ```
 
-By default local server uses ***notify_send*** command for displaying notifications, there is a possibility to use different app without wrapper scripts: 
+By default the local notification server uses the ***notify_send*** command in your host PATH for displaying notifications, there is a possibility to use different app without wrapper scripts:
 * ***notify.sender\_app*** configuration option is used for specifing application name (default: `notify-send`)
 * ***notify.sender\_params\_str*** defines how params for applications will be passed (default: `[--app-name {app_name}] [--urgency {urgency}] [--expire-time {expire_time}] [--icon {icon}] [--category {category}] [--hint {hint}] {message}`). You can use these variables (escaped by `{` and `}` characters) here:
   * ***urgency*** - urgency level for notification
