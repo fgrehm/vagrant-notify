@@ -1,3 +1,12 @@
+## [0.6.1](https://github.com/fgrehm/vagrant-notify/compare/v0.6.0...v0.6.1) (December 23, 2020)
+IMPROVEMENTS
+
+  - Improving notification server startup.
+
+BUG FIXES
+
+  - avoid error `newline at the end of hostname (SocketError)` [[GH-44]](https://github.com/fgrehm/vagrant-notify/pull/44)
+
 ## [0.6.0](https://github.com/fgrehm/vagrant-notify/compare/v0.5.6...v0.6.0) (September 5, 2020)
 IMPROVEMENTS
 
