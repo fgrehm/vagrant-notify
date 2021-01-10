@@ -60,10 +60,6 @@ module Vagrant
           require 'vagrant-parallels/action'
           hook.before VagrantPlugins::Parallels::Action::Suspend, Vagrant::Notify::Action.action_stop_server
         end
-        if defined?(VagrantPlugins::AppCatalyst)
-          require 'vagrant-vmware-appcatalyst/action'
-          hook.before VagrantPlugins::AppCatalyst::Action::Suspend, Vagrant::Notify::Action.action_stop_server
-        end
       end
 
       command(:notify) do
