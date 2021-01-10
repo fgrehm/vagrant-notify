@@ -60,9 +60,9 @@ end
 ```
 
 _Please note that as of v0.5.1, the notification server will automatically be disabled for any of the following
-[cloud providers](lib/vagrant-notify/plugin.rb#L81-L84)._
+[cloud providers](lib/vagrant-notify/plugin.rb#L78-L80)._
 
-By default, the notification server is binded to [local interfaces](lib/vagrant-notify/plugin.rb#L86-L93). For networking different than your provider's default network configuration, you can use the ***notify.bind\_ip*** configuration option to bind the notification server onto a different local ip address. 
+By default, the notification server is binded to [local interfaces](lib/vagrant-notify/plugin.rb#L83-L90). For networking different than your provider's default network configuration, you can use the ***notify.bind\_ip*** configuration option to bind the notification server onto a different local ip address. 
 
 ```ruby
 Vagrant.configure(2) do |config|
@@ -70,6 +70,8 @@ Vagrant.configure(2) do |config|
   config.notify.bind_ip = "192.68.56.20"
 end
 ```
+
+**WARNING!** _Do **NOT** bind the notification server to an IP accessible over a network! The notification server does not have any authentication and doing so will leave your system vulnerable to remote command execution._
 
 By default the local notification server uses the ***notify_send*** command in your host PATH for displaying notifications, there is a possibility to use different app without wrapper scripts:
 * ***notify.sender\_app*** configuration option is used for specifing application name (default: `notify-send`)
@@ -92,10 +94,6 @@ Vagrant.configure(2) do |config|
   config.notify.sender_params_escape = true
 end
 ```
-
-**WARNING**
-
-_Do **NOT** bind the notification server to an IP accessible over a network! The notification server does not have any authentication and doing so will leave your system vulnerable to remote command execution._
 
 ### Providers and Guests
 
