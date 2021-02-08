@@ -6,7 +6,6 @@
 
 require 'optparse'
 
-
 options = {}
 OptionParser.new do |opts|
   opts.on('-u', '--urgency LEVEL')           { |v| options[:u] = v } # Option gets removed
@@ -23,9 +22,9 @@ if ARGV.length == 0
   puts "No summary specified"
   exit 1
 elsif ARGV.length == 1
-  message = "\"#{ARGV[0]}\""
+  message = "#{ARGV[0]}".inspect
 elsif ARGV.length == 2
-  message = "\"#{ARGV[0]}\" with title \"#{ARGV[1]}\""
+  message = "#{ARGV[0]}".inspect + " with title " + "#{ARGV[1]}".inspect
 else
   puts "Invalid number of options."
   exit 1
