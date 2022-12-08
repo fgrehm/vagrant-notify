@@ -1,3 +1,9 @@
+# :warning: UNMAINTAINED :warning:
+
+This project has been archived. Thanks a lot to everyone that contributed with it and used it over the years ❤️‍🔥
+
+If anyone else wants to resurrect it please reach out on Twitter or by other means listed in @fgrehm's website!
+
 # vagrant-notify
 
 [![Build Status](https://travis-ci.org/fgrehm/vagrant-notify.png)](https://travis-ci.org/fgrehm/vagrant-notify)
